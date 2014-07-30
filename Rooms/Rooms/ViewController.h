@@ -7,7 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ESTBeacon.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
+    NSUserDefaults *defaults;
+}
 
+@property (nonatomic) IBOutlet UITableView *beaconTable;
+@property (nonatomic) IBOutlet UITableView *stashedBeaconTable;
+
+@property (nonatomic, strong) NSMutableArray *beaconsArray;
+@property (nonatomic) NSMutableArray *savedBeaconsArray;
+@property (nonatomic) NSMutableArray *foundBeaconsArray;
+
+@property (nonatomic, strong) NSArray *defaultsArray;
+@property (nonatomic) IBOutlet UILabel *selectLabel;
+
+- (id)initWithBeacon:(ESTBeacon *)beacon;
 @end

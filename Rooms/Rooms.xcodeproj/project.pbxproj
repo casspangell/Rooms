@@ -21,6 +21,17 @@
 		8962ADFA1986BFE300F1211D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDC1986BFE300F1211D /* UIKit.framework */; };
 		8962AE021986BFE300F1211D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8962AE001986BFE300F1211D /* InfoPlist.strings */; };
 		8962AE041986BFE300F1211D /* RoomsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8962AE031986BFE300F1211D /* RoomsTests.m */; };
+		89BD2FEB198839C000E86446 /* libEstimoteSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD2FEA198839C000E86446 /* libEstimoteSDK.a */; };
+		89BD2FEC198839D800E86446 /* ESTBeacon.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE3198839BA00E86446 /* ESTBeacon.h */; };
+		89BD2FED198839D800E86446 /* ESTBeaconDefinitions.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE4198839BA00E86446 /* ESTBeaconDefinitions.h */; };
+		89BD2FEE198839D800E86446 /* ESTBeaconFirmwareInfoVO.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE5198839BA00E86446 /* ESTBeaconFirmwareInfoVO.h */; };
+		89BD2FEF198839D800E86446 /* ESTBeaconFirmwareVO.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE6198839BA00E86446 /* ESTBeaconFirmwareVO.h */; };
+		89BD2FF0198839D800E86446 /* ESTBeaconManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE7198839BA00E86446 /* ESTBeaconManager.h */; };
+		89BD2FF1198839D800E86446 /* ESTBeaconRegion.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE8198839BA00E86446 /* ESTBeaconRegion.h */; };
+		89BD2FF2198839D800E86446 /* ESTBeaconVO.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE9198839BA00E86446 /* ESTBeaconVO.h */; };
+		89BD2FFF19883C8000E86446 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD2FFE19883C8000E86446 /* CoreBluetooth.framework */; };
+		89BD300119883C8A00E86446 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300019883C8A00E86446 /* CoreLocation.framework */; };
+		89BD300319883C9500E86446 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300219883C9500E86446 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +64,17 @@
 		8962ADFF1986BFE300F1211D /* RoomsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RoomsTests-Info.plist"; sourceTree = "<group>"; };
 		8962AE011986BFE300F1211D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8962AE031986BFE300F1211D /* RoomsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomsTests.m; sourceTree = "<group>"; };
+		89BD2FE3198839BA00E86446 /* ESTBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeacon.h; sourceTree = "<group>"; };
+		89BD2FE4198839BA00E86446 /* ESTBeaconDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconDefinitions.h; sourceTree = "<group>"; };
+		89BD2FE5198839BA00E86446 /* ESTBeaconFirmwareInfoVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconFirmwareInfoVO.h; sourceTree = "<group>"; };
+		89BD2FE6198839BA00E86446 /* ESTBeaconFirmwareVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconFirmwareVO.h; sourceTree = "<group>"; };
+		89BD2FE7198839BA00E86446 /* ESTBeaconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconManager.h; sourceTree = "<group>"; };
+		89BD2FE8198839BA00E86446 /* ESTBeaconRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconRegion.h; sourceTree = "<group>"; };
+		89BD2FE9198839BA00E86446 /* ESTBeaconVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconVO.h; sourceTree = "<group>"; };
+		89BD2FEA198839C000E86446 /* libEstimoteSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEstimoteSDK.a; sourceTree = "<group>"; };
+		89BD2FFE19883C8000E86446 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		89BD300019883C8A00E86446 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		89BD300219883C9500E86446 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +82,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89BD300319883C9500E86446 /* SystemConfiguration.framework in Frameworks */,
+				89BD300119883C8A00E86446 /* CoreLocation.framework in Frameworks */,
+				89BD2FFF19883C8000E86446 /* CoreBluetooth.framework in Frameworks */,
 				8962ADDB1986BFE300F1211D /* CoreGraphics.framework in Frameworks */,
 				8962ADDD1986BFE300F1211D /* UIKit.framework in Frameworks */,
+				89BD2FEB198839C000E86446 /* libEstimoteSDK.a in Frameworks */,
 				8962ADD91986BFE300F1211D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +127,11 @@
 		8962ADD71986BFE300F1211D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89BD300219883C9500E86446 /* SystemConfiguration.framework */,
+				89BD300019883C8A00E86446 /* CoreLocation.framework */,
+				89BD2FFE19883C8000E86446 /* CoreBluetooth.framework */,
+				89BD2FEA198839C000E86446 /* libEstimoteSDK.a */,
+				89BD2FE2198839BA00E86446 /* Headers */,
 				8962ADD81986BFE300F1211D /* Foundation.framework */,
 				8962ADDA1986BFE300F1211D /* CoreGraphics.framework */,
 				8962ADDC1986BFE300F1211D /* UIKit.framework */,
@@ -150,6 +181,20 @@
 				8962AE001986BFE300F1211D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89BD2FE2198839BA00E86446 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				89BD2FE3198839BA00E86446 /* ESTBeacon.h */,
+				89BD2FE4198839BA00E86446 /* ESTBeaconDefinitions.h */,
+				89BD2FE5198839BA00E86446 /* ESTBeaconFirmwareInfoVO.h */,
+				89BD2FE6198839BA00E86446 /* ESTBeaconFirmwareVO.h */,
+				89BD2FE7198839BA00E86446 /* ESTBeaconManager.h */,
+				89BD2FE8198839BA00E86446 /* ESTBeaconRegion.h */,
+				89BD2FE9198839BA00E86446 /* ESTBeaconVO.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +294,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89BD2FEC198839D800E86446 /* ESTBeacon.h in Sources */,
+				89BD2FED198839D800E86446 /* ESTBeaconDefinitions.h in Sources */,
+				89BD2FEE198839D800E86446 /* ESTBeaconFirmwareInfoVO.h in Sources */,
+				89BD2FEF198839D800E86446 /* ESTBeaconFirmwareVO.h in Sources */,
+				89BD2FF0198839D800E86446 /* ESTBeaconManager.h in Sources */,
+				89BD2FF1198839D800E86446 /* ESTBeaconRegion.h in Sources */,
+				89BD2FF2198839D800E86446 /* ESTBeaconVO.h in Sources */,
 				8962ADEF1986BFE300F1211D /* ViewController.m in Sources */,
 				8962ADE91986BFE300F1211D /* AppDelegate.m in Sources */,
 				8962ADE51986BFE300F1211D /* main.m in Sources */,
@@ -379,6 +431,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rooms/Rooms-Prefix.pch";
 				INFOPLIST_FILE = "Rooms/Rooms-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/EstimoteSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -392,6 +449,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rooms/Rooms-Prefix.pch";
 				INFOPLIST_FILE = "Rooms/Rooms-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/EstimoteSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -456,6 +518,7 @@
 				8962AE091986BFE300F1211D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8962AE0A1986BFE300F1211D /* Build configuration list for PBXNativeTarget "RoomsTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +527,7 @@
 				8962AE0C1986BFE300F1211D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
