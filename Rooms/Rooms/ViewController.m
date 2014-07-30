@@ -107,7 +107,7 @@
             [_foundBeaconsArray addObject:[_beaconsArray objectAtIndex:i]];
         }
         
-        NSLog(@"found %@", _foundBeaconsArray);
+       // NSLog(@"found %@", _foundBeaconsArray);
         
         beacon = [_foundBeaconsArray objectAtIndex:indexPath.row];
     }else{
@@ -145,16 +145,16 @@
     defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:selectedBeacon.major forKey:@"beacon"];
-       NSLog(@"Saved beacons %@", [defaults objectForKey:@"beacon"]);
-    
-    [_savedBeaconsArray addObject:selectedBeacon];
-    
-    //is beacon already saved?
-    for (int i=0; i<[_savedBeaconsArray count]; i++) {
-        if ([_savedBeaconsArray objectAtIndex:i] == selectedBeacon ) {
-            NSLog(@"BEACON already saved");
+
+    if ([_beaconsArray count] > 0) {
+        if ([_savedBeaconsArray containsObject:selectedBeacon]) {
+            //NSLog(@"beacon already saved");
+        }else{
+            //NSLog(@"need to save beacon");
+            [_savedBeaconsArray addObject:selectedBeacon];
         }
     }
+    
     
     [self fade];
 }
