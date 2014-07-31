@@ -33,9 +33,9 @@
     
     //Check if beacon is already saved
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
-
-    // NSLog(@"Saved beacons %@", [defaults objectForKey:[NSString stringWithFormat:@"%@", selectedBeacon.minor]]);
-
+    
+    //NSLog(@"Saved beacons %@", [defaults objectForKey:[NSString stringWithFormat:@"%@", selectedBeacon.minor]]);
+    
     /*
      * BeaconManager setup.
      */
@@ -69,7 +69,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self fadeOn];
     
-
+    
     [_beaconTable reloadData];
 }
 
@@ -102,12 +102,12 @@
     
     _foundBeaconsArray = [[NSMutableArray alloc] init];
     if (indexPath.section == 0) {
-
+        
         for (int i=0; i<[_beaconsArray count]; i++) {
             [_foundBeaconsArray addObject:[_beaconsArray objectAtIndex:i]];
         }
         
-       // NSLog(@"found %@", _foundBeaconsArray);
+        // NSLog(@"found %@", _foundBeaconsArray);
         
         beacon = [_foundBeaconsArray objectAtIndex:indexPath.row];
     }else{
@@ -115,7 +115,7 @@
         cell.userInteractionEnabled = NO;
         
     }
-
+    
     cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
     
@@ -126,9 +126,10 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
+    
     if (section == 0 && ([_beaconsArray count] > 0)) {
         return @"Found beacon - Tap to activate.";
-
+        
     }else{
         return @"Saved Beacons";
     }
@@ -144,8 +145,9 @@
     ESTBeacon *selectedBeacon = [_beaconsArray objectAtIndex:indexPath.row];
     defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:selectedBeacon.major forKey:@"beacon"];
-
+    [defaults setObject:selectedBeacon.major forKey:[NSString stringWithFormat:@"beacon-%@", selectedBeacon.minor]];
+    NSLog(@"NSUserDefaults %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+    
     if ([_beaconsArray count] > 0) {
         if ([_savedBeaconsArray containsObject:selectedBeacon]) {
             //NSLog(@"beacon already saved");
@@ -171,14 +173,12 @@
             ESTBeacon *beacon = [beacons objectAtIndex:i];
             
             if ([beacon.distance isEqualToNumber:[NSNumber numberWithDouble:-1.00]]) {
-               //don't add to array
+                //don't add to array
             }else{
                 [_beaconsArray addObject:[beacons objectAtIndex:i]];
             }
-            
-            
         }
-
+        
         [_beaconTable reloadData];
     }
 }
