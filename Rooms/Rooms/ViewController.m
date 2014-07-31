@@ -35,7 +35,7 @@
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
     defaults = [NSUserDefaults standardUserDefaults];
     beaconsPrevSaved = [[NSMutableArray alloc] init];
-    //NSLog(@"%@", [defaults objectForKey:@"beacons"]);
+    NSLog(@"%@", [defaults objectForKey:@"beacons"]);
     
     
     //NSLog(@"Saved beacons %@", [defaults objectForKey:[NSString stringWithFormat:@"%@", selectedBeacon.minor]]);
@@ -68,6 +68,20 @@
         [_selectLabel setAlpha:1];
         [_beaconTable setAlpha:1];
     }];
+}
+
+-(void)addBeaconToArray:(ESTBeacon*)beacon{
+    NSLog(@"beacon %@", beacon);
+    
+    defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *beacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
+    
+    NSLog(@"%@", beacons);
+    [beacons addObject:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]];
+    
+    [defaults setObject:beacons forKey:@"beacons"];
+    NSLog(@"beacons %@", [defaults objectForKey:@"beacons"]);
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -149,7 +163,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ESTBeacon *selectedBeacon = [_beaconsArray objectAtIndex:indexPath.row];
-    defaults = [NSUserDefaults standardUserDefaults];
     
     
     /*
@@ -175,8 +188,10 @@
             NSString *minor = [NSString stringWithFormat:@"%@", selectedBeacon.minor];
             [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor ]];
 
-            [defaults setObject:beaconsPrevSaved forKey:@"beacons"];
-            NSLog(@"NSUserDefaults %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+            //[defaults setObject:beaconsPrevSaved forKey:@"beacons"];
+            //NSLog(@"NSUserDefaults %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+            
+            [self addBeaconToArray:selectedBeacon];
         }
     }
     
