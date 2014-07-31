@@ -10,7 +10,7 @@
 #import "ESTBeaconManager.h"
 
 @interface ViewController () <ESTBeaconManagerDelegate>{
-    
+    NSMutableArray *beaconsPrevSaved;
 }
 
 @property (nonatomic, strong) ESTBeacon         *beacon;
@@ -33,6 +33,10 @@
     
     //Check if beacon is already saved
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
+    defaults = [NSUserDefaults standardUserDefaults];
+    beaconsPrevSaved = [[NSMutableArray alloc] init];
+    //NSLog(@"%@", [defaults objectForKey:@"beacons"]);
+    
     
     //NSLog(@"Saved beacons %@", [defaults objectForKey:[NSString stringWithFormat:@"%@", selectedBeacon.minor]]);
     
@@ -99,8 +103,10 @@
     }
     
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
+    defaults = [NSUserDefaults standardUserDefaults];
     
     _foundBeaconsArray = [[NSMutableArray alloc] init];
+
     if (indexPath.section == 0) {
         
         for (int i=0; i<[_beaconsArray count]; i++) {
@@ -145,8 +151,18 @@
     ESTBeacon *selectedBeacon = [_beaconsArray objectAtIndex:indexPath.row];
     defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:selectedBeacon.major forKey:[NSString stringWithFormat:@"beacon-%@", selectedBeacon.minor]];
-    NSLog(@"NSUserDefaults %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+    
+    /*
+    [_foundBeaconsDic setObject:selectedBeacon.major forKey:selectedBeacon.minor];
+
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_foundBeaconsDic];
+    [defaults setObject:data forKey:@"beacons"];
+    [defaults synchronize];
+    */
+    //NSLog(@"dict %@", [_foundBeaconsDic description]);
+    
+   // [defaults setObject:selectedBeacon.major forKey:[NSString stringWithFormat:@"beacon-%@", selectedBeacon.minor]];
+    
     
     if ([_beaconsArray count] > 0) {
         if ([_savedBeaconsArray containsObject:selectedBeacon]) {
@@ -154,6 +170,13 @@
         }else{
             //NSLog(@"need to save beacon");
             [_savedBeaconsArray addObject:selectedBeacon];
+            
+            NSString *major = [NSString stringWithFormat:@"%@", selectedBeacon.major];
+            NSString *minor = [NSString stringWithFormat:@"%@", selectedBeacon.minor];
+            [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor ]];
+
+            [defaults setObject:beaconsPrevSaved forKey:@"beacons"];
+            NSLog(@"NSUserDefaults %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
         }
     }
     
