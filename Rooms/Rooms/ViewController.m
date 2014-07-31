@@ -74,19 +74,25 @@
     NSLog(@"beacon %@", beacon);
     
     defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *beacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
+    _beacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
     
-    NSLog(@"%@", beacons);
-    [beacons addObject:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]];
+    NSLog(@"%@", _beacons);
+    [_beacons addObject:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]];
     
-    [defaults setObject:beacons forKey:@"beacons"];
+    [defaults setObject:_beacons forKey:@"beacons"];
     NSLog(@"beacons %@", [defaults objectForKey:@"beacons"]);
     
 }
 
+-(NSMutableArray*)getInternalBeacons{
+    defaults = [NSUserDefaults standardUserDefaults];
+    _beacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
+    return _beacons;
+}
+
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self fadeOn];
-    
     
     [_beaconTable reloadData];
 }
@@ -102,8 +108,11 @@
 {
     if (section == 0){
         return [_beaconsArray count];
+    
     }else{
-        return [_savedBeaconsArray count];
+        
+        NSArray *beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
+        return [beacons count];
     }
 }
 
@@ -126,19 +135,24 @@
         for (int i=0; i<[_beaconsArray count]; i++) {
             [_foundBeaconsArray addObject:[_beaconsArray objectAtIndex:i]];
         }
-        
-        // NSLog(@"found %@", _foundBeaconsArray);
-        
+
         beacon = [_foundBeaconsArray objectAtIndex:indexPath.row];
-    }else{
-        beacon = [_savedBeaconsArray objectAtIndex:indexPath.row];
-        cell.userInteractionEnabled = NO;
+        cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
         
+    }else{
+
+        NSArray *beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
+        beacon = [beacons objectAtIndex:indexPath.row];
+        
+        NSString *bstring = [beacons objectAtIndex:indexPath.row];
+        NSArray *parse = [bstring componentsSeparatedByString:@"-"];
+
+        //cell.userInteractionEnabled = NO;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
+ 
     }
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
-    
+
     cell.imageView.image = [UIImage imageNamed:@"beacon"];
     
     return cell;
@@ -146,37 +160,37 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    
-    if (section == 0 && ([_beaconsArray count] > 0)) {
-        return @"Found beacon - Tap to activate.";
+    if (section == 0) {
+        if ([_beaconsArray count] > 0) {
+            return @"Found beacon - Tap to activate.";
+        }else{
+            return @"Searching...";
+        }
         
-    }else{
-        return @"Saved Beacons";
+        
+    }else {
+        if ([[self getInternalBeacons] count]>0){
+            return @"Saved Beacons in Stash";
+        }else{
+            return @"No Beacons in Stash";
+        }
     }
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 80;
+    if ([indexPath section] == 1) {
+        return 45;
+    }else{
+        return 80;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ESTBeacon *selectedBeacon = [_beaconsArray objectAtIndex:indexPath.row];
-    
-    
-    /*
-    [_foundBeaconsDic setObject:selectedBeacon.major forKey:selectedBeacon.minor];
 
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_foundBeaconsDic];
-    [defaults setObject:data forKey:@"beacons"];
-    [defaults synchronize];
-    */
-    //NSLog(@"dict %@", [_foundBeaconsDic description]);
-    
-   // [defaults setObject:selectedBeacon.major forKey:[NSString stringWithFormat:@"beacon-%@", selectedBeacon.minor]];
-    
-    
     if ([_beaconsArray count] > 0) {
         if ([_savedBeaconsArray containsObject:selectedBeacon]) {
             //NSLog(@"beacon already saved");
@@ -188,9 +202,6 @@
             NSString *minor = [NSString stringWithFormat:@"%@", selectedBeacon.minor];
             [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor ]];
 
-            //[defaults setObject:beaconsPrevSaved forKey:@"beacons"];
-            //NSLog(@"NSUserDefaults %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
-            
             [self addBeaconToArray:selectedBeacon];
         }
     }

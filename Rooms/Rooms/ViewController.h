@@ -19,10 +19,12 @@
 @property (nonatomic, strong) NSMutableArray *beaconsArray;
 @property (nonatomic) NSMutableArray *savedBeaconsArray;
 @property (nonatomic) NSMutableArray *foundBeaconsArray;
+@property (nonatomic) NSMutableArray *beacons;
 
 @property (nonatomic, strong) NSArray *defaultsArray;
 @property (nonatomic) IBOutlet UILabel *selectLabel;
 
 - (id)initWithBeacon:(ESTBeacon *)beacon;
 -(void)addBeaconToArray:(ESTBeacon*)beacon;
+-(NSMutableArray*)getInternalBeacons;
 @end

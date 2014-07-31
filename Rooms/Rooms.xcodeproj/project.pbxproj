@@ -32,6 +32,7 @@
 		89BD2FFF19883C8000E86446 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD2FFE19883C8000E86446 /* CoreBluetooth.framework */; };
 		89BD300119883C8A00E86446 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300019883C8A00E86446 /* CoreLocation.framework */; };
 		89BD300319883C9500E86446 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300219883C9500E86446 /* SystemConfiguration.framework */; };
+		89BD3005198AED6500E86446 /* beacon.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3004198AED6500E86446 /* beacon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		89BD2FFE19883C8000E86446 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		89BD300019883C8A00E86446 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		89BD300219883C9500E86446 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		89BD3004198AED6500E86446 /* beacon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beacon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 		8962ADDE1986BFE300F1211D /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
+				89BD3004198AED6500E86446 /* beacon.png */,
 				8962ADE71986BFE300F1211D /* AppDelegate.h */,
 				8962ADE81986BFE300F1211D /* AppDelegate.m */,
 				8962ADEA1986BFE300F1211D /* Main.storyboard */,
@@ -276,6 +279,7 @@
 				8962ADF11986BFE300F1211D /* Images.xcassets in Resources */,
 				8962ADE31986BFE300F1211D /* InfoPlist.strings in Resources */,
 				8962ADEC1986BFE300F1211D /* Main.storyboard in Resources */,
+				89BD3005198AED6500E86446 /* beacon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
