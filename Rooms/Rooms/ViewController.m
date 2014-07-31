@@ -126,7 +126,7 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    if (section == 0) {
+    if (section == 0 && ([_beaconsArray count] > 0)) {
         return @"Found beacon - Tap to activate.";
 
     }else{
@@ -168,7 +168,15 @@
         _beaconsArray = [[NSMutableArray alloc] init];
         
         for (int i=0; i<[beacons count]; i++) {
-            [_beaconsArray addObject:[beacons objectAtIndex:i]];
+            ESTBeacon *beacon = [beacons objectAtIndex:i];
+            
+            if ([beacon.distance isEqualToNumber:[NSNumber numberWithDouble:-1.00]]) {
+               //don't add to array
+            }else{
+                [_beaconsArray addObject:[beacons objectAtIndex:i]];
+            }
+            
+            
         }
 
         [_beaconTable reloadData];
