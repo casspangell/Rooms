@@ -29,8 +29,6 @@
     self.beaconTable.delegate = self;
     self.beaconTable.dataSource = self;
     
-    _selectLabel.text = @"Current beacons in stash.";
-    
     //Check if beacon is already saved
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
     defaults = [NSUserDefaults standardUserDefaults];
@@ -53,14 +51,20 @@
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
 }
 
--(void) fade {
+-(void) fade:(BOOL)didSave {
     [UIView animateWithDuration:.1 animations:^(void) {
         [_selectLabel setAlpha:.3];
         [_beaconTable setAlpha:.3];
     }];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Saved!" message:@"Beacon is now active." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [alert show];
+    if (didSave) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is now stashed." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is already stashed." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+    }
+    
 }
 
 -(void) fadeOn {
@@ -167,7 +171,6 @@
             return @"Searching...";
         }
         
-        
     }else {
         if ([[self getInternalBeacons] count]>0){
             return @"Saved Beacons in Stash";
@@ -191,9 +194,13 @@
 {
     ESTBeacon *selectedBeacon = [_beaconsArray objectAtIndex:indexPath.row];
 
+    defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
+
     if ([_beaconsArray count] > 0) {
-        if ([_savedBeaconsArray containsObject:selectedBeacon]) {
-            //NSLog(@"beacon already saved");
+        if ([savedbeacons containsObject:[NSString stringWithFormat:@"%@-%@", selectedBeacon.major, selectedBeacon.minor]]) {
+            NSLog(@"beacon already saved");
+            [self fade:NO];
         }else{
             //NSLog(@"need to save beacon");
             [_savedBeaconsArray addObject:selectedBeacon];
@@ -203,11 +210,12 @@
             [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor ]];
 
             [self addBeaconToArray:selectedBeacon];
+            [self fade:YES];
         }
     }
     
     
-    [self fade];
+    
 }
 
 #pragma mark - ESTBeaconManager delegate
