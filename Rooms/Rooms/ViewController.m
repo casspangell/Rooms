@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "ESTBeaconManager.h"
+#import "MLBeaconData.h"
+#import <AudioToolbox/AudioServices.h>
 
 @interface ViewController () <ESTBeaconManagerDelegate>{
     NSMutableArray *beaconsPrevSaved;
@@ -130,7 +132,7 @@
         beacon = [_foundBeaconsArray objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
-        
+        cell.imageView.image = [UIImage imageNamed:@"beacon"];
     }else{
 
         NSArray *beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
@@ -140,11 +142,12 @@
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
 
         //cell.userInteractionEnabled = NO;
+        cell.textLabel.text = nil;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
- 
+        cell.imageView.image = nil;
     }
 
-    cell.imageView.image = [UIImage imageNamed:@"beacon"];
+    
     
     return cell;
 }
@@ -184,20 +187,24 @@
     NSArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
 
     if ([_beaconsArray count] > 0) {
-        if ([savedbeacons containsObject:[NSString stringWithFormat:@"%@-%@", selectedBeacon.major, selectedBeacon.minor]]) {
-            NSLog(@"beacon already saved");
-            [self fade:NO];
-        }else{
-            //NSLog(@"need to save beacon");
-            [_savedBeaconsArray addObject:selectedBeacon];
-            
-            NSString *major = [NSString stringWithFormat:@"%@", selectedBeacon.major];
-            NSString *minor = [NSString stringWithFormat:@"%@", selectedBeacon.minor];
-            [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor ]];
-
-            [self addBeaconToArray:selectedBeacon];
-            [self fade:YES];
+        
+        if (indexPath.section == 0) {
+            if ([savedbeacons containsObject:[NSString stringWithFormat:@"%@-%@", selectedBeacon.major, selectedBeacon.minor]]) {
+                NSLog(@"beacon already saved");
+                [self fade:NO];
+            }else{
+                //NSLog(@"need to save beacon");
+                [_savedBeaconsArray addObject:selectedBeacon];
+                
+                NSString *major = [NSString stringWithFormat:@"%@", selectedBeacon.major];
+                NSString *minor = [NSString stringWithFormat:@"%@", selectedBeacon.minor];
+                [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor ]];
+                
+                [self addBeaconToArray:selectedBeacon];
+                [self fade:YES];
+            }
         }
+
     }
 }
 
@@ -226,10 +233,17 @@
                 NSString *savedBeacon = [savedbeacons objectAtIndex:i];
                 
                 if ([savedBeacon isEqualToString:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]]) {
-                    NSLocale* currentLocale = [NSLocale currentLocale];
+                   // NSLocale* currentLocale = [NSLocale currentLocale];
                     
+#pragma mark - DO SOMETHING WITH THE BEACON IN PROXIMITY
                     if ([[self grabProximity:beacon.proximity] isEqualToString:@"Near"] || [[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
-                        NSLog(@"Log beacon time: %@",[[NSDate date] descriptionWithLocale:currentLocale]);
+                        
+                        MLBeaconData *data = [[MLBeaconData alloc] init];
+                        NSLocale* currentLocale = [NSLocale currentLocale];
+                        NSLog(@"%@",[[NSDate date] descriptionWithLocale:currentLocale]);
+                        
+                        //NSLog(@"Log beacon time: %@",[[NSDate date] descriptionWithLocale:currentLocale]);
+                        //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                     }
                 }
             }

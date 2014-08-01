@@ -11,6 +11,7 @@
 
 @interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
     NSUserDefaults *defaults;
+    NSMutableDictionary *beaconData;
 }
 
 @property (nonatomic) IBOutlet UITableView *beaconTable;

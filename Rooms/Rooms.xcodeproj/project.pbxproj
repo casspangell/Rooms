@@ -34,6 +34,10 @@
 		89BD300319883C9500E86446 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300219883C9500E86446 /* SystemConfiguration.framework */; };
 		89BD3005198AED6500E86446 /* beacon.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3004198AED6500E86446 /* beacon.png */; };
 		89BD300B198C09EB00E86446 /* MLTimeLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */; };
+		89BD3013198C26F200E86446 /* appicon_58.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3010198C26F200E86446 /* appicon_58.png */; };
+		89BD3014198C26F200E86446 /* appicon_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3011198C26F200E86446 /* appicon_80.png */; };
+		89BD3015198C26F200E86446 /* appicon_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3012198C26F200E86446 /* appicon_120.png */; };
+		89BD3019198C31A700E86446 /* MLBeaconData.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD3018198C31A700E86446 /* MLBeaconData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,11 @@
 		89BD3004198AED6500E86446 /* beacon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beacon.png; sourceTree = "<group>"; };
 		89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTimeLogViewController.h; sourceTree = "<group>"; };
 		89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTimeLogViewController.m; sourceTree = "<group>"; };
+		89BD3010198C26F200E86446 /* appicon_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_58.png; sourceTree = "<group>"; };
+		89BD3011198C26F200E86446 /* appicon_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_80.png; sourceTree = "<group>"; };
+		89BD3012198C26F200E86446 /* appicon_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_120.png; sourceTree = "<group>"; };
+		89BD3017198C31A700E86446 /* MLBeaconData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBeaconData.h; sourceTree = "<group>"; };
+		89BD3018198C31A700E86446 /* MLBeaconData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBeaconData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +157,6 @@
 		8962ADDE1986BFE300F1211D /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
-				89BD3004198AED6500E86446 /* beacon.png */,
 				8962ADE71986BFE300F1211D /* AppDelegate.h */,
 				8962ADE81986BFE300F1211D /* AppDelegate.m */,
 				8962ADEA1986BFE300F1211D /* Main.storyboard */,
@@ -156,6 +164,9 @@
 				8962ADEE1986BFE300F1211D /* ViewController.m */,
 				89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */,
 				89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */,
+				89BD3017198C31A700E86446 /* MLBeaconData.h */,
+				89BD3018198C31A700E86446 /* MLBeaconData.m */,
+				89BD3016198C27C900E86446 /* Images */,
 				8962ADF01986BFE300F1211D /* Images.xcassets */,
 				8962ADDF1986BFE300F1211D /* Supporting Files */,
 			);
@@ -203,6 +214,17 @@
 				89BD2FE9198839BA00E86446 /* ESTBeaconVO.h */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		89BD3016198C27C900E86446 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				89BD3004198AED6500E86446 /* beacon.png */,
+				89BD3010198C26F200E86446 /* appicon_58.png */,
+				89BD3011198C26F200E86446 /* appicon_80.png */,
+				89BD3012198C26F200E86446 /* appicon_120.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,7 +306,10 @@
 				8962ADF11986BFE300F1211D /* Images.xcassets in Resources */,
 				8962ADE31986BFE300F1211D /* InfoPlist.strings in Resources */,
 				8962ADEC1986BFE300F1211D /* Main.storyboard in Resources */,
+				89BD3015198C26F200E86446 /* appicon_120.png in Resources */,
 				89BD3005198AED6500E86446 /* beacon.png in Resources */,
+				89BD3014198C26F200E86446 /* appicon_80.png in Resources */,
+				89BD3013198C26F200E86446 /* appicon_58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89BD3019198C31A700E86446 /* MLBeaconData.m in Sources */,
 				89BD2FEC198839D800E86446 /* ESTBeacon.h in Sources */,
 				89BD2FED198839D800E86446 /* ESTBeaconDefinitions.h in Sources */,
 				89BD2FEE198839D800E86446 /* ESTBeaconFirmwareInfoVO.h in Sources */,
@@ -437,7 +463,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rooms/Rooms-Prefix.pch";
 				INFOPLIST_FILE = "Rooms/Rooms-Info.plist";
@@ -455,7 +481,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rooms/Rooms-Prefix.pch";
 				INFOPLIST_FILE = "Rooms/Rooms-Info.plist";

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MLTimeLogViewController : UIViewController
+@interface MLTimeLogViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+
+    NSMutableArray *stashArray;
+
+}
+@property (nonatomic) IBOutlet UITableView *stashTableView;
+-(void)addBeaconToStash:(NSString*)beaconData;
 
 @end
