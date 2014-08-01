@@ -33,6 +33,7 @@
 		89BD300119883C8A00E86446 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300019883C8A00E86446 /* CoreLocation.framework */; };
 		89BD300319883C9500E86446 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300219883C9500E86446 /* SystemConfiguration.framework */; };
 		89BD3005198AED6500E86446 /* beacon.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3004198AED6500E86446 /* beacon.png */; };
+		89BD300B198C09EB00E86446 /* MLTimeLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		89BD300019883C8A00E86446 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		89BD300219883C9500E86446 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		89BD3004198AED6500E86446 /* beacon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beacon.png; sourceTree = "<group>"; };
+		89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTimeLogViewController.h; sourceTree = "<group>"; };
+		89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTimeLogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				8962ADEA1986BFE300F1211D /* Main.storyboard */,
 				8962ADED1986BFE300F1211D /* ViewController.h */,
 				8962ADEE1986BFE300F1211D /* ViewController.m */,
+				89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */,
+				89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */,
 				8962ADF01986BFE300F1211D /* Images.xcassets */,
 				8962ADDF1986BFE300F1211D /* Supporting Files */,
 			);
@@ -302,6 +307,7 @@
 				89BD2FED198839D800E86446 /* ESTBeaconDefinitions.h in Sources */,
 				89BD2FEE198839D800E86446 /* ESTBeaconFirmwareInfoVO.h in Sources */,
 				89BD2FEF198839D800E86446 /* ESTBeaconFirmwareVO.h in Sources */,
+				89BD300B198C09EB00E86446 /* MLTimeLogViewController.m in Sources */,
 				89BD2FF0198839D800E86446 /* ESTBeaconManager.h in Sources */,
 				89BD2FF1198839D800E86446 /* ESTBeaconRegion.h in Sources */,
 				89BD2FF2198839D800E86446 /* ESTBeaconVO.h in Sources */,

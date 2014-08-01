@@ -28,19 +28,6 @@
     _savedBeaconsArray = [[NSMutableArray alloc] init];
     self.beaconTable.delegate = self;
     self.beaconTable.dataSource = self;
-    
-    //Check if beacon is already saved
-    ESTBeacon *beacon = [[ESTBeacon alloc] init];
-    defaults = [NSUserDefaults standardUserDefaults];
-    beaconsPrevSaved = [[NSMutableArray alloc] init];
-    NSLog(@"%@", [defaults objectForKey:@"beacons"]);
-    
-    
-    //NSLog(@"Saved beacons %@", [defaults objectForKey:[NSString stringWithFormat:@"%@", selectedBeacon.minor]]);
-    
-    /*
-     * BeaconManager setup.
-     */
     self.beaconManager = [[ESTBeaconManager alloc] init];
     self.beaconManager.delegate = self;
     
@@ -178,7 +165,6 @@
             return @"No Beacons in Stash";
         }
     }
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -213,19 +199,20 @@
             [self fade:YES];
         }
     }
-    
-    
-    
 }
 
 #pragma mark - ESTBeaconManager delegate
 //Detects all beacons in range
 - (void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region
 {
+    
+    NSArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
+    
     if (beacons.count > 0)
     {
         _beaconsArray = [[NSMutableArray alloc] init];
         
+        //Adding beacons to UITableView
         for (int i=0; i<[beacons count]; i++) {
             ESTBeacon *beacon = [beacons objectAtIndex:i];
             
@@ -234,9 +221,41 @@
             }else{
                 [_beaconsArray addObject:[beacons objectAtIndex:i]];
             }
+            
+            for (int i=0; i< [savedbeacons count]; i++) {
+                NSString *savedBeacon = [savedbeacons objectAtIndex:i];
+                
+                if ([savedBeacon isEqualToString:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]]) {
+                    NSLocale* currentLocale = [NSLocale currentLocale];
+                    
+                    if ([[self grabProximity:beacon.proximity] isEqualToString:@"Near"] || [[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
+                        NSLog(@"Log beacon time: %@",[[NSDate date] descriptionWithLocale:currentLocale]);
+                    }
+                }
+            }
+            
         }
         
         [_beaconTable reloadData];
+    }
+}
+
+- (NSString *)grabProximity:(CLProximity)proximity
+{
+    switch (proximity) {
+        case CLProximityFar:
+            return @"Far";
+            break;
+        case CLProximityNear:
+            return @"Near";
+            break;
+        case CLProximityImmediate:
+            return @"Immediate";
+            break;
+            
+        default:
+            return @"Unknown";
+            break;
     }
 }
 
