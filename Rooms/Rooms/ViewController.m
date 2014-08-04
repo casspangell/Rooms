@@ -233,16 +233,15 @@
                 NSString *savedBeacon = [savedbeacons objectAtIndex:i];
                 
                 if ([savedBeacon isEqualToString:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]]) {
-                   // NSLocale* currentLocale = [NSLocale currentLocale];
+                    // NSLocale* currentLocale = [NSLocale currentLocale];
                     
 #pragma mark - DO SOMETHING WITH THE BEACON IN PROXIMITY
                     if ([[self grabProximity:beacon.proximity] isEqualToString:@"Near"] || [[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
                         
-                        MLBeaconData *data = [[MLBeaconData alloc] init];
                         NSLocale* currentLocale = [NSLocale currentLocale];
-                        NSLog(@"%@",[[NSDate date] descriptionWithLocale:currentLocale]);
                         
-                        //NSLog(@"Log beacon time: %@",[[NSDate date] descriptionWithLocale:currentLocale]);
+                        [self setBeaconInDict:beacon :[[NSDate date] descriptionWithLocale:currentLocale]];
+                        
                         //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                     }
                 }
@@ -252,6 +251,22 @@
         
         [_beaconTable reloadData];
     }
+}
+
+-(void)setBeaconInDict:(ESTBeacon*)beacon :(NSString*)timestamp
+{
+    NSString *key = [NSString stringWithFormat:@"%@-%@-time", beacon.major, beacon.minor];
+    
+    NSArray *components = [timestamp componentsSeparatedByString:@"Mountain Daylight Time"];
+    NSString *newTime = [components objectAtIndex:0];
+    
+    NSMutableArray *timestampArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:key]];
+    
+    [timestampArray addObject:newTime];
+
+    [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
+    NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+    
 }
 
 - (NSString *)grabProximity:(CLProximity)proximity
