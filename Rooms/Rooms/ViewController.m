@@ -260,23 +260,17 @@
     
     NSArray *components = [timestamp componentsSeparatedByString:@"Mountain Daylight Time"];
     NSString *newTime = [components objectAtIndex:0];
-   // NSLog(@"%@", newTime);
-   // NSLog(@"%@", [self parseString:newTime);
-    
+
     NSMutableArray *timestampArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:key]];
     NSString *lastObj = [timestampArray objectAtIndex:[timestampArray count]-1];
-    //NSLog(@"%@", lastObj);
-    //NSLog(@"%@", [self parseString:lastObj);
-    
+ 
     //5 second buffer
     if ([self compareTime:[self parseString:lastObj] :[self parseString:newTime]]) {
-       NSLog(@"weeee");
         [timestampArray addObject:newTime];
     }
     
-    
     [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-    //NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+    NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
 }
 
 -(NSArray*)parseString:(NSString*)comp{
@@ -290,22 +284,21 @@
 }
 
 -(BOOL)compareTime:(NSArray*)oldTime :(NSArray*)newTime{
-    NSLog(@"%@ %@", oldTime, newTime);
-    
+
     if ([[oldTime objectAtIndex:0] intValue] == [[newTime objectAtIndex:0] intValue]) {
-        NSLog(@"same hour");
+        //same hour
         
         if ([[oldTime objectAtIndex:1] intValue] == [[newTime objectAtIndex:1] intValue]) {
-            NSLog(@"same minute");
+           //same min
            
             int value = [[newTime objectAtIndex:2] intValue] - [[oldTime objectAtIndex:2] intValue];
-            NSLog(@"same second");
+            //same sec
             
             if (value > 5) {
                 return YES;
             }else
                 return NO;
-        //Not the same minute 
+        //Not the same minute
         }else
             return YES;
     
