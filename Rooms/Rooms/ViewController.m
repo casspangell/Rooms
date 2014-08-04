@@ -13,6 +13,7 @@
 
 @interface ViewController () <ESTBeaconManagerDelegate>{
     NSMutableArray *beaconsPrevSaved;
+    BOOL timerflag;
 }
 
 @property (nonatomic, strong) ESTBeacon         *beacon;
@@ -212,7 +213,7 @@
 //Detects all beacons in range
 - (void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region
 {
-    
+    int count = 0;
     NSArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
     
     if (beacons.count > 0)
@@ -239,9 +240,9 @@
                     if ([[self grabProximity:beacon.proximity] isEqualToString:@"Near"] || [[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
                         
                         NSLocale* currentLocale = [NSLocale currentLocale];
-                        
+
                         [self setBeaconInDict:beacon :[[NSDate date] descriptionWithLocale:currentLocale]];
-                        
+ 
                         //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                     }
                 }
@@ -259,14 +260,59 @@
     
     NSArray *components = [timestamp componentsSeparatedByString:@"Mountain Daylight Time"];
     NSString *newTime = [components objectAtIndex:0];
+   // NSLog(@"%@", newTime);
+   // NSLog(@"%@", [self parseString:newTime);
     
     NSMutableArray *timestampArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:key]];
+    NSString *lastObj = [timestampArray objectAtIndex:[timestampArray count]-1];
+    //NSLog(@"%@", lastObj);
+    //NSLog(@"%@", [self parseString:lastObj);
     
-    [timestampArray addObject:newTime];
-
+    //5 second buffer
+    if ([self compareTime:[self parseString:lastObj] :[self parseString:newTime]]) {
+       NSLog(@"weeee");
+        [timestampArray addObject:newTime];
+    }
+    
+    
     [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-    NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+    //NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+}
+
+-(NSArray*)parseString:(NSString*)comp{
+    NSArray *comp2 = [comp componentsSeparatedByString:@"at "];
+    NSString *string1 = [comp2 objectAtIndex:1];
+    NSArray *comp3 = [string1 componentsSeparatedByString:@" "];
+    NSString *string2 = [comp3 objectAtIndex:0];
+    NSArray *comp4 = [string2 componentsSeparatedByString:@":"];
     
+    return comp4;
+}
+
+-(BOOL)compareTime:(NSArray*)oldTime :(NSArray*)newTime{
+    NSLog(@"%@ %@", oldTime, newTime);
+    
+    if ([[oldTime objectAtIndex:0] intValue] == [[newTime objectAtIndex:0] intValue]) {
+        NSLog(@"same hour");
+        
+        if ([[oldTime objectAtIndex:1] intValue] == [[newTime objectAtIndex:1] intValue]) {
+            NSLog(@"same minute");
+           
+            int value = [[newTime objectAtIndex:2] intValue] - [[oldTime objectAtIndex:2] intValue];
+            NSLog(@"same second");
+            
+            if (value > 5) {
+                return YES;
+            }else
+                return NO;
+        //Not the same minute 
+        }else
+            return YES;
+    
+        //Time is not within 15 seconds of previous
+    }else{
+        return YES;
+    }
 }
 
 - (NSString *)grabProximity:(CLProximity)proximity
