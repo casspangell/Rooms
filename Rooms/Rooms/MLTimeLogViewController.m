@@ -26,24 +26,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
--(void)addBeaconToStash:(NSString*)beaconData{
+    self.stashTable.delegate = self;
+    self.stashTable.dataSource = self;
     
+    beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
+    
+    for (int i=0; i<[beacons count]; i++) {
+        NSString* key = [NSString stringWithFormat:@"%@-time", [beacons objectAtIndex:i]];
+        NSLog(@"key %@", key);
+        
+        timestampArray = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    }
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    NSLog(@"sections: %d", [beacons count]);
+    return [beacons count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return [timestampArray count];
 }
+
 #pragma mark - Table view delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -53,23 +61,24 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
     }
     
-        cell.textLabel.text = @"HI";
-        cell.detailTextLabel.text = @"HI there";
-    
-        cell.imageView.image = [UIImage imageNamed:@"beacon"];
+        cell.detailTextLabel.text = [timestampArray objectAtIndex:indexPath.row];
+       // cell.detailTextLabel.text = @"HI there";
     
     return cell;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    return @"Stashes";
+
+    NSArray *parse = [[beacons objectAtIndex:section] componentsSeparatedByString:@"-"];
+    NSString *beacon = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
+
+    return beacon;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    return 80;
+    return 44;
 
 }
 
@@ -83,16 +92,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

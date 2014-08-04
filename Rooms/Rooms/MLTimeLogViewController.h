@@ -10,10 +10,12 @@
 
 @interface MLTimeLogViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
 
-    NSMutableArray *stashArray;
+    NSArray *beacons;
+    NSArray *keys;
+    NSMutableArray *timestampArray;
 
 }
-@property (nonatomic) IBOutlet UITableView *stashTableView;
+@property (nonatomic) IBOutlet UITableView *stashTable;
 -(void)addBeaconToStash:(NSString*)beaconData;
 
 @end

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "ESTBeaconManager.h"
-#import "MLBeaconData.h"
+#import "MLTimeLogViewController.h"
 #import <AudioToolbox/AudioServices.h>
 
 @interface ViewController () <ESTBeaconManagerDelegate>{
@@ -270,7 +270,7 @@
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-    NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+  //  NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
 }
 
 -(NSArray*)parseString:(NSString*)comp{

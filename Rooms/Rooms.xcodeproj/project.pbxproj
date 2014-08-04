@@ -37,7 +37,6 @@
 		89BD3013198C26F200E86446 /* appicon_58.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3010198C26F200E86446 /* appicon_58.png */; };
 		89BD3014198C26F200E86446 /* appicon_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3011198C26F200E86446 /* appicon_80.png */; };
 		89BD3015198C26F200E86446 /* appicon_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 89BD3012198C26F200E86446 /* appicon_120.png */; };
-		89BD3019198C31A700E86446 /* MLBeaconData.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD3018198C31A700E86446 /* MLBeaconData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,8 +86,6 @@
 		89BD3010198C26F200E86446 /* appicon_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_58.png; sourceTree = "<group>"; };
 		89BD3011198C26F200E86446 /* appicon_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_80.png; sourceTree = "<group>"; };
 		89BD3012198C26F200E86446 /* appicon_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_120.png; sourceTree = "<group>"; };
-		89BD3017198C31A700E86446 /* MLBeaconData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBeaconData.h; sourceTree = "<group>"; };
-		89BD3018198C31A700E86446 /* MLBeaconData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBeaconData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,8 +161,6 @@
 				8962ADEE1986BFE300F1211D /* ViewController.m */,
 				89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */,
 				89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */,
-				89BD3017198C31A700E86446 /* MLBeaconData.h */,
-				89BD3018198C31A700E86446 /* MLBeaconData.m */,
 				89BD3016198C27C900E86446 /* Images */,
 				8962ADF01986BFE300F1211D /* Images.xcassets */,
 				8962ADDF1986BFE300F1211D /* Supporting Files */,
@@ -328,7 +323,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89BD3019198C31A700E86446 /* MLBeaconData.m in Sources */,
 				89BD2FEC198839D800E86446 /* ESTBeacon.h in Sources */,
 				89BD2FED198839D800E86446 /* ESTBeaconDefinitions.h in Sources */,
 				89BD2FEE198839D800E86446 /* ESTBeaconFirmwareInfoVO.h in Sources */,
