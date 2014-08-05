@@ -255,6 +255,7 @@
 -(void)setBeaconInDict:(ESTBeacon*)beacon :(NSString*)timestamp
 {
     NSString *key = [NSString stringWithFormat:@"%@-%@-time", beacon.major, beacon.minor];
+    NSLog(@"key %@", key);
     
     NSArray *components = [timestamp componentsSeparatedByString:@"Mountain Daylight Time"];
     NSString *newTime = [components objectAtIndex:0];
@@ -272,16 +273,14 @@
         }
         
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-        NSLog(@"dict1 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+        //NSLog(@"dict1 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
         
     }else{
+        
         [timestampArray addObject:newTime];
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-        NSLog(@"dict2 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+        //NSLog(@"dict2 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
     }
-
-
- 
 }
 
 -(NSArray*)parseString:(NSString*)comp{

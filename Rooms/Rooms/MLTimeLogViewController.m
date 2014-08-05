@@ -31,24 +31,38 @@
     
     beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
     
-    for (int i=0; i<[beacons count]; i++) {
+   /* for (int i=0; i<[beacons count]; i++) {
         NSString* key = [NSString stringWithFormat:@"%@-time", [beacons objectAtIndex:i]];
         NSLog(@"key %@", key);
         
         timestampArray = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    }
+        
+        NSLog(@"timestampArray %@", timestampArray);
+    }*/
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0
+                                     target:self
+                                   selector:@selector(reloadTable)
+                                   userInfo:nil
+                                    repeats:YES];
+}
+
+-(void)reloadTable{
+    [self.stashTable reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"sections: %d", [beacons count]);
     return [beacons count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSString* key = [NSString stringWithFormat:@"%@-time", [beacons objectAtIndex:section]];
+
+    timestampArray = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     return [timestampArray count];
 }
 
