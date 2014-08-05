@@ -27,7 +27,6 @@
 @property (nonatomic, strong) NSArray *defaultsArray;
 @property (nonatomic) IBOutlet UILabel *selectLabel;
 
-- (id)initWithBeacon:(ESTBeacon *)beacon;
 -(void)addBeaconToArray:(ESTBeacon*)beacon;
 -(NSMutableArray*)getInternalBeacons;
 @end

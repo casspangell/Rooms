@@ -16,6 +16,5 @@
 
 }
 @property (nonatomic) IBOutlet UITableView *stashTable;
--(void)addBeaconToStash:(NSString*)beaconData;
 
 @end

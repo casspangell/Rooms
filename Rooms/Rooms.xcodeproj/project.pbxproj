@@ -22,13 +22,6 @@
 		8962AE021986BFE300F1211D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8962AE001986BFE300F1211D /* InfoPlist.strings */; };
 		8962AE041986BFE300F1211D /* RoomsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8962AE031986BFE300F1211D /* RoomsTests.m */; };
 		89BD2FEB198839C000E86446 /* libEstimoteSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD2FEA198839C000E86446 /* libEstimoteSDK.a */; };
-		89BD2FEC198839D800E86446 /* ESTBeacon.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE3198839BA00E86446 /* ESTBeacon.h */; };
-		89BD2FED198839D800E86446 /* ESTBeaconDefinitions.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE4198839BA00E86446 /* ESTBeaconDefinitions.h */; };
-		89BD2FEE198839D800E86446 /* ESTBeaconFirmwareInfoVO.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE5198839BA00E86446 /* ESTBeaconFirmwareInfoVO.h */; };
-		89BD2FEF198839D800E86446 /* ESTBeaconFirmwareVO.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE6198839BA00E86446 /* ESTBeaconFirmwareVO.h */; };
-		89BD2FF0198839D800E86446 /* ESTBeaconManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE7198839BA00E86446 /* ESTBeaconManager.h */; };
-		89BD2FF1198839D800E86446 /* ESTBeaconRegion.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE8198839BA00E86446 /* ESTBeaconRegion.h */; };
-		89BD2FF2198839D800E86446 /* ESTBeaconVO.h in Sources */ = {isa = PBXBuildFile; fileRef = 89BD2FE9198839BA00E86446 /* ESTBeaconVO.h */; };
 		89BD2FFF19883C8000E86446 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD2FFE19883C8000E86446 /* CoreBluetooth.framework */; };
 		89BD300119883C8A00E86446 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300019883C8A00E86446 /* CoreLocation.framework */; };
 		89BD300319883C9500E86446 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BD300219883C9500E86446 /* SystemConfiguration.framework */; };
@@ -323,14 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89BD2FEC198839D800E86446 /* ESTBeacon.h in Sources */,
-				89BD2FED198839D800E86446 /* ESTBeaconDefinitions.h in Sources */,
-				89BD2FEE198839D800E86446 /* ESTBeaconFirmwareInfoVO.h in Sources */,
-				89BD2FEF198839D800E86446 /* ESTBeaconFirmwareVO.h in Sources */,
 				89BD300B198C09EB00E86446 /* MLTimeLogViewController.m in Sources */,
-				89BD2FF0198839D800E86446 /* ESTBeaconManager.h in Sources */,
-				89BD2FF1198839D800E86446 /* ESTBeaconRegion.h in Sources */,
-				89BD2FF2198839D800E86446 /* ESTBeaconVO.h in Sources */,
 				8962ADEF1986BFE300F1211D /* ViewController.m in Sources */,
 				8962ADE91986BFE300F1211D /* AppDelegate.m in Sources */,
 				8962ADE51986BFE300F1211D /* main.m in Sources */,

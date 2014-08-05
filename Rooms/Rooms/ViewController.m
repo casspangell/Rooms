@@ -211,7 +211,6 @@
 //Detects all beacons in range
 - (void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region
 {
-    int count = 0;
     NSArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
     
     if (beacons.count > 0)
@@ -259,7 +258,6 @@
 -(void)setBeaconInDict:(ESTBeacon*)beacon :(NSString*)timestamp
 {
     NSString *key = [NSString stringWithFormat:@"%@-%@-time", beacon.major, beacon.minor];
-    NSLog(@"key %@", key);
     
     NSArray *components = [timestamp componentsSeparatedByString:@"Mountain Daylight Time"];
     NSString *newTime = [components objectAtIndex:0];
