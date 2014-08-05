@@ -65,16 +65,16 @@
 }
 
 -(void)addBeaconToArray:(ESTBeacon*)beacon{
-    NSLog(@"beacon %@", beacon);
+    NSLog(@"beacon adding to array %@", beacon);
     
     defaults = [NSUserDefaults standardUserDefaults];
     _beacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
     
-    NSLog(@"%@", _beacons);
+    NSLog(@"current beacons saved %@", _beacons);
     [_beacons addObject:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]];
     
     [defaults setObject:_beacons forKey:@"beacons"];
-    NSLog(@"beacons %@", [defaults objectForKey:@"beacons"]);
+    NSLog(@"beacons added %@", [defaults objectForKey:@"beacons"]);
     
 }
 
@@ -124,8 +124,8 @@
     
     _foundBeaconsArray = [[NSMutableArray alloc] init];
 
+    //Load Found Beacons
     if (indexPath.section == 0) {
-        
         for (int i=0; i<[_beaconsArray count]; i++) {
             [_foundBeaconsArray addObject:[_beaconsArray objectAtIndex:i]];
         }
@@ -134,22 +134,20 @@
         cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
         cell.imageView.image = [UIImage imageNamed:@"beacon"];
+   
+    //Load Stashed Beacons
     }else{
-
         NSArray *beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
         beacon = [beacons objectAtIndex:indexPath.row];
         
         NSString *bstring = [beacons objectAtIndex:indexPath.row];
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
 
-        //cell.userInteractionEnabled = NO;
         cell.textLabel.text = nil;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
         cell.imageView.image = nil;
     }
 
-    
-    
     return cell;
 }
 
@@ -262,15 +260,28 @@
     NSString *newTime = [components objectAtIndex:0];
 
     NSMutableArray *timestampArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:key]];
-    NSString *lastObj = [timestampArray objectAtIndex:[timestampArray count]-1];
- 
-    //5 second buffer
-    if ([self compareTime:[self parseString:lastObj] :[self parseString:newTime]]) {
-        [timestampArray addObject:newTime];
-    }
+    NSLog(@"timestampArray %@", timestampArray);
     
-    [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-  //  NSLog(@"dict %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+    //Does timestamp have any values to compare?
+    if ([timestampArray count] > 0) {
+        NSString *lastObj = [timestampArray objectAtIndex:[timestampArray count]-1];
+        
+        //5 second buffer
+        if ([self compareTime:[self parseString:lastObj] :[self parseString:newTime]]) {
+         [timestampArray addObject:newTime];
+        }
+        
+        [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
+        NSLog(@"dict1 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+        
+    }else{
+        [timestampArray addObject:newTime];
+        [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
+        NSLog(@"dict2 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
+    }
+
+
+ 
 }
 
 -(NSArray*)parseString:(NSString*)comp{
