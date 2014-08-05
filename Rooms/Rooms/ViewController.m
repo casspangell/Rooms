@@ -240,8 +240,12 @@
                         NSLocale* currentLocale = [NSLocale currentLocale];
 
                         [self setBeaconInDict:beacon :[[NSDate date] descriptionWithLocale:currentLocale]];
- 
-                        //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                    }
+                 
+                //This beacon isn't stashed yet!
+                }else{
+                    if(![[self grabProximity:beacon.proximity] isEqualToString:@"Unknown"]){
+                        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                     }
                 }
             }
@@ -293,6 +297,7 @@
     return comp4;
 }
 
+//Time buffer
 -(BOOL)compareTime:(NSArray*)oldTime :(NSArray*)newTime{
 
     if ([[oldTime objectAtIndex:0] intValue] == [[newTime objectAtIndex:0] intValue]) {
@@ -304,7 +309,7 @@
             int value = [[newTime objectAtIndex:2] intValue] - [[oldTime objectAtIndex:2] intValue];
             //same sec
             
-            if (value > 5) {
+            if (value > 10) {
                 return YES;
             }else
                 return NO;
@@ -312,7 +317,7 @@
         }else
             return YES;
     
-        //Time is not within 15 seconds of previous
+        //Time is not within x seconds of previous
     }else{
         return YES;
     }
