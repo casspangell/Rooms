@@ -31,15 +31,6 @@
     
     beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
     
-   /* for (int i=0; i<[beacons count]; i++) {
-        NSString* key = [NSString stringWithFormat:@"%@-time", [beacons objectAtIndex:i]];
-        NSLog(@"key %@", key);
-        
-        timestampArray = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-        
-        NSLog(@"timestampArray %@", timestampArray);
-    }*/
-    
     [NSTimer scheduledTimerWithTimeInterval:5.0
                                      target:self
                                    selector:@selector(reloadTable)
@@ -74,10 +65,9 @@
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
     }
-    
-        cell.detailTextLabel.text = [timestampArray objectAtIndex:indexPath.row];
-       // cell.detailTextLabel.text = @"HI there";
-    
+        NSArray* reversedArray = [[timestampArray reverseObjectEnumerator] allObjects];
+        cell.detailTextLabel.text = [reversedArray objectAtIndex:indexPath.row];
+
     return cell;
 }
 
