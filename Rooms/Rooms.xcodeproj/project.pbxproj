@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8943718A19916FD7000200DA /* MLVisualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8943718919916FD7000200DA /* MLVisualViewController.m */; };
+		8943718D19918A3E000200DA /* MLDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8943718C19918A3E000200DA /* MLDrawing.m */; };
 		8962ADD91986BFE300F1211D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADD81986BFE300F1211D /* Foundation.framework */; };
 		8962ADDB1986BFE300F1211D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDA1986BFE300F1211D /* CoreGraphics.framework */; };
 		8962ADDD1986BFE300F1211D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDC1986BFE300F1211D /* UIKit.framework */; };
@@ -43,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8943718819916FD7000200DA /* MLVisualViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVisualViewController.h; sourceTree = "<group>"; };
+		8943718919916FD7000200DA /* MLVisualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVisualViewController.m; sourceTree = "<group>"; };
+		8943718B19918A3E000200DA /* MLDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDrawing.h; sourceTree = "<group>"; };
+		8943718C19918A3E000200DA /* MLDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDrawing.m; sourceTree = "<group>"; };
 		8962ADD51986BFE300F1211D /* Rooms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rooms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8962ADD81986BFE300F1211D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8962ADDA1986BFE300F1211D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -154,6 +160,10 @@
 				8962ADEE1986BFE300F1211D /* ViewController.m */,
 				89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */,
 				89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */,
+				8943718819916FD7000200DA /* MLVisualViewController.h */,
+				8943718919916FD7000200DA /* MLVisualViewController.m */,
+				8943718B19918A3E000200DA /* MLDrawing.h */,
+				8943718C19918A3E000200DA /* MLDrawing.m */,
 				89BD3016198C27C900E86446 /* Images */,
 				8962ADF01986BFE300F1211D /* Images.xcassets */,
 				8962ADDF1986BFE300F1211D /* Supporting Files */,
@@ -319,7 +329,9 @@
 				89BD300B198C09EB00E86446 /* MLTimeLogViewController.m in Sources */,
 				8962ADEF1986BFE300F1211D /* ViewController.m in Sources */,
 				8962ADE91986BFE300F1211D /* AppDelegate.m in Sources */,
+				8943718A19916FD7000200DA /* MLVisualViewController.m in Sources */,
 				8962ADE51986BFE300F1211D /* main.m in Sources */,
+				8943718D19918A3E000200DA /* MLDrawing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

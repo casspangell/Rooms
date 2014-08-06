@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "ESTBeaconManager.h"
 #import "MLTimeLogViewController.h"
+#import "MLVisualViewController.h"
 #import <AudioToolbox/AudioServices.h>
 
 @interface ViewController () <ESTBeaconManagerDelegate>{
@@ -91,6 +92,17 @@
     [_beaconTable reloadData];
 }
 
+#pragma mark - Segue
+- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe{
+    
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self performSegueWithIdentifier:@"visualDataSegue" sender:self];
+    }else{
+        [self performSegueWithIdentifier:@"seeBeaconStashData" sender:self];
+    }
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -119,6 +131,14 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
     }
     
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
+    [cell.contentView addGestureRecognizer:swipeGesture];
+    
+    UISwipeGestureRecognizer *swipeGestureL = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [swipeGestureL setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [cell.contentView addGestureRecognizer:swipeGestureL];
+    
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
     defaults = [NSUserDefaults standardUserDefaults];
     
@@ -126,6 +146,7 @@
 
     //Load Found Beacons
     if (indexPath.section == 0) {
+        
         for (int i=0; i<[_beaconsArray count]; i++) {
             [_foundBeaconsArray addObject:[_beaconsArray objectAtIndex:i]];
         }
@@ -143,8 +164,8 @@
         NSString *bstring = [beacons objectAtIndex:indexPath.row];
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
 
-        cell.textLabel.text = nil;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
+        cell.detailTextLabel.text = @"swipe right to view visual data";
+        cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
         cell.imageView.image = nil;
     }
 
@@ -172,7 +193,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([indexPath section] == 1) {
-        return 45;
+        return 80;//45
     }else{
         return 80;
     }
@@ -234,7 +255,8 @@
                     // NSLocale* currentLocale = [NSLocale currentLocale];
                     
 #pragma mark - DO SOMETHING WITH THE BEACON IN PROXIMITY
-                    if ([[self grabProximity:beacon.proximity] isEqualToString:@"Near"] || [[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
+                    //if ([[self grabProximity:beacon.proximity] isEqualToString:@"Near"] || [[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
+                    if ([[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
                         
                         NSLocale* currentLocale = [NSLocale currentLocale];
 
@@ -263,7 +285,7 @@
     NSString *newTime = [components objectAtIndex:0];
 
     NSMutableArray *timestampArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:key]];
-    NSLog(@"timestampArray %@", timestampArray);
+    //NSLog(@"timestampArray %@", timestampArray);
     
     //Does timestamp have any values to compare?
     if ([timestampArray count] > 0) {
@@ -272,15 +294,18 @@
         //5 second buffer
         if ([self compareTime:[self parseString:lastObj] :[self parseString:newTime]]) {
          [timestampArray addObject:newTime];
+        AudioServicesPlaySystemSound (1052);
         }
         
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
+        
         //NSLog(@"dict1 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
         
     }else{
         
         [timestampArray addObject:newTime];
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
+        
         //NSLog(@"dict2 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
     }
 }
@@ -295,7 +320,7 @@
     return comp4;
 }
 
-//Time buffer
+#pragma mark - Time Buffer
 -(BOOL)compareTime:(NSArray*)oldTime :(NSArray*)newTime{
 
     if ([[oldTime objectAtIndex:0] intValue] == [[newTime objectAtIndex:0] intValue]) {

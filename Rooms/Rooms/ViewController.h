@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ESTBeacon.h"
 
-@interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
+@interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate> {
     NSUserDefaults *defaults;
     NSMutableDictionary *beaconData;
 }
@@ -29,4 +29,5 @@
 
 -(void)addBeaconToArray:(ESTBeacon*)beacon;
 -(NSMutableArray*)getInternalBeacons;
+
 @end
