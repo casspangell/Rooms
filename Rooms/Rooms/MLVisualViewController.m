@@ -110,20 +110,26 @@
  
     NSMutableDictionary *daysDict = [[NSMutableDictionary alloc] initWithDictionary:[self countDays]];
     NSLog(@"days %@", [daysDict description]);
-        [self setDiameter:70];
+    NSArray *colors = @[@"red", @"orange", @"yellow", @"green", @"blue"];
+
+    for(NSString *key in [daysDict allKeys]) {
+        NSNumber *num = [daysDict objectForKey:key];
+
+        [self setDiameter:[num intValue]];
         lWidth = 10.0;
         
-        drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth];
+        drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth andColor:[UIColor orangeColor]];
         
         [self.view addSubview:drawing];
         
-        [UIView animateWithDuration:2 animations:^(void) {
+      /*  [UIView animateWithDuration:2 animations:^(void) {
             drawing.transform = CGAffineTransformMakeScale(5, 5);
         }];
  
-        /*[UIView animateWithDuration:2 animations:^(void) {
+       [UIView animateWithDuration:2 animations:^(void) {
             drawing.alpha = 0;
         }];*/
+    }
 }
 
 -(NSMutableDictionary*)countDays{

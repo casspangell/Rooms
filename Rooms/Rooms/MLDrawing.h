@@ -12,8 +12,9 @@
     CGRect rectangle;
     float diameter;
     float lineWidth;
+    UIColor *colorRef;
 }
 
-- (id)initWithFrame:(CGRect)frame andDiameter:(double)dmeter andLineWidth:(double)lWidth;
+- (id)initWithFrame:(CGRect)frame andDiameter:(double)dmeter andLineWidth:(double)lWidth andColor:(UIColor*)color;
 
 @end

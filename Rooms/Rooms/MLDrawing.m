@@ -11,39 +11,31 @@
 
 @implementation MLDrawing
 
-- (id)initWithFrame:(CGRect)frame andDiameter:(double)dmeter andLineWidth:(double)lWidth
+- (id)initWithFrame:(CGRect)frame andDiameter:(double)dmeter andLineWidth:(double)lWidth andColor:(UIColor *)color
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         diameter = dmeter;
         lineWidth = lWidth;
+        colorRef = color;
+
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
 
+-(void)setColor{
+    
+}
+
 - (void)drawRect:(CGRect)rect {
-    
-    
-   // NSLog(@"diameter %f", diameter);
-   // NSLog(@"line width: %f", lineWidth);
-    
-    /* CGContextRef context = UIGraphicsGetCurrentContext();
-     CGContextSetLineWidth(context, lineWidth);
-     CGContextSetStrokeColorWithColor(context,
-     [UIColor blueColor].CGColor);
-     rectangle = CGRectMake(0,0,diameter,diameter);
-     
-     CGContextAddEllipseInRect(context, rectangle);
-     CGContextStrokePath(context);*/
+    const float* colors = CGColorGetComponents(colorRef.CGColor);
     
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(contextRef, 2.0);
-    CGContextSetRGBFillColor(contextRef, 0, 0, 1.0, 1.0);
-    CGContextSetRGBStrokeColor(contextRef, 0, 0, 1.0, 1.0);
+    CGContextSetRGBFillColor(contextRef, colors[0], colors[1], colors[2], colors[3]);
     CGRect circlePoint = (CGRectMake(0, 0, diameter, diameter));
-    
     CGContextFillEllipseInRect(contextRef, circlePoint);
     
 }
