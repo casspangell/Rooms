@@ -110,25 +110,37 @@
  
     NSMutableDictionary *daysDict = [[NSMutableDictionary alloc] initWithDictionary:[self countDays]];
     NSLog(@"days %@", [daysDict description]);
-    NSArray *colors = @[@"red", @"orange", @"yellow", @"green", @"blue"];
-
+    UIColor *color;
+    
     for(NSString *key in [daysDict allKeys]) {
         NSNumber *num = [daysDict objectForKey:key];
-
+        
+        if ([key isEqualToString:@"Tuesday"]) {
+            color = [UIColor orangeColor];
+        }else if ([key isEqualToString:@"Wednesday"]) {
+            color = [UIColor greenColor];
+        }else if([key isEqualToString:@"Thursday"]) {
+            color = [UIColor blueColor];
+        }else if([key isEqualToString:@"Friday"]) {
+            color = [UIColor purpleColor];
+        }else if([key isEqualToString:@"Monday"]) {
+            color = [UIColor yellowColor];
+        }
+        
         [self setDiameter:[num intValue]];
         lWidth = 10.0;
         
-        drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth andColor:[UIColor orangeColor]];
+        drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth andColor:color];
         
         [self.view addSubview:drawing];
         
-      /*  [UIView animateWithDuration:2 animations:^(void) {
+        [UIView animateWithDuration:2 animations:^(void) {
             drawing.transform = CGAffineTransformMakeScale(5, 5);
         }];
  
        [UIView animateWithDuration:2 animations:^(void) {
             drawing.alpha = 0;
-        }];*/
+        }];
     }
 }
 
