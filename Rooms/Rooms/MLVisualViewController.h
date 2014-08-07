@@ -24,6 +24,6 @@
 
 -(void)setDiameter:(double)dmeter;
 -(double)getDiameter;
--(void)createDrawing:(NSMutableArray*)hours :(NSMutableArray*)minutes :(NSMutableArray*)seconds;
+-(void)createDrawing;
 
 @end

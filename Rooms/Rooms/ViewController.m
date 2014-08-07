@@ -10,6 +10,7 @@
 #import "ESTBeaconManager.h"
 #import "MLTimeLogViewController.h"
 #import "MLVisualViewController.h"
+
 #import <AudioToolbox/AudioServices.h>
 
 @interface ViewController () <ESTBeaconManagerDelegate>{
@@ -130,7 +131,7 @@
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
     }
-    
+
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
     [cell.contentView addGestureRecognizer:swipeGesture];
@@ -193,7 +194,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([indexPath section] == 1) {
-        return 80;//45
+        return 45;//45
     }else{
         return 80;
     }

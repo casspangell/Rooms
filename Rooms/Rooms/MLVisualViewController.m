@@ -35,34 +35,36 @@
     self.stashTable.dataSource = self;
     
     days = [[NSMutableArray alloc] init];
+
     numbers = [[NSMutableArray alloc] init];
     hours = [[NSMutableArray alloc] init];
     minutes = [[NSMutableArray alloc] init];
     seconds = [[NSMutableArray alloc] init];
     
-    beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
-
-    for (int i=0; i<[beacons count]; i++) {
-        NSString *key = [beacons objectAtIndex:i];
-        timestampArray = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@-time", key]];
-    }
-    
-    for (int i=0; i<[timestampArray count]; i++) {
-        [self parse:[timestampArray objectAtIndex:i]];
-    }
+    [self getBeacons];
     
     [self getNumbers];
 
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-    [self createDrawing:hours :minutes :seconds];
+    [self createDrawing];
+    
+  /*  for (int i=0; i<[hours count]; i++) {
+        [self performSelector:@selector(createDrawing:) withObject:[hours objectAtIndex:i] afterDelay:2.0];
+        [self performSelector:@selector(test) withObject:nil afterDelay:2.0];
+    }
+   */
+}
+
+-(void)test{
+   // NSLog(@"test");
 }
 
 -(void)parse:(NSString*)time{
     NSArray *pieces = [time componentsSeparatedByString:@","];
     NSString *day = [pieces objectAtIndex:0];
-  //  [days addObject:day];
+    [days addObject:day];
     
     NSString *monthDay = [pieces objectAtIndex:1];
     NSString *yearAtTime = [pieces objectAtIndex:2];
@@ -81,32 +83,97 @@
 -(void)getNumbers{
     //NSLog(@"=> %@", numbers);
 
-    
     for (int i=0; i<[numbers count]; i++) {
         NSArray *parse = [[numbers objectAtIndex:i] componentsSeparatedByString:@":"];
         [hours addObject:[parse objectAtIndex:0]];
         [minutes addObject:[parse objectAtIndex:1]];
         [seconds addObject:[parse objectAtIndex:2]];
     }
-    
-    
 }
 
--(void)createDrawing:(NSMutableArray*)hours :(NSMutableArray*)minutes :(NSMutableArray*)seconds{
+-(void)getBeacons{
+    beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
     
-    NSLog(@"count %d %@", [hours count], hours);
-    
-    for (int i=0; i<[hours count]; i++) {
-
-        double dist = [[hours objectAtIndex:i] doubleValue];
-        [self setDiameter:70.0];
-        lWidth = 10.0;
-
-        drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth];
-
-        [self.view addSubview:drawing];
+    for (int i=0; i<[beacons count]; i++) {
+        NSString *key = [beacons objectAtIndex:i];
+        timestampArray = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@-time", key]];
     }
+    
+    for (int i=0; i<[timestampArray count]; i++) {
+        [self parse:[timestampArray objectAtIndex:i]];
+    }
+    
 
+}
+
+-(void)createDrawing {
+ 
+    NSMutableDictionary *daysDict = [[NSMutableDictionary alloc] initWithDictionary:[self countDays]];
+    NSLog(@"days %@", [daysDict description]);
+        [self setDiameter:70];
+        lWidth = 10.0;
+        
+        drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth];
+        
+        [self.view addSubview:drawing];
+        
+        [UIView animateWithDuration:2 animations:^(void) {
+            drawing.transform = CGAffineTransformMakeScale(5, 5);
+        }];
+ 
+        /*[UIView animateWithDuration:2 animations:^(void) {
+            drawing.alpha = 0;
+        }];*/
+}
+
+-(NSMutableDictionary*)countDays{
+    NSMutableDictionary *daysOfWeekDict = [[NSMutableDictionary alloc] init];
+    NSMutableArray *daysOfWeekArray = [[NSMutableArray alloc] init];
+    [daysOfWeekArray insertObject:[NSNumber numberWithInt:0] atIndex:0];
+    [daysOfWeekArray addObject:@"color"];
+    int num = 0;
+    
+    for (int i=0; i<[days count]; i++) {
+        NSString *day = [days objectAtIndex:i];
+
+        if ([day isEqualToString:@"Tuesday"]) {
+
+            NSNumber *number = [daysOfWeekDict objectForKey:@"Tuesday"];
+            num = [number intValue];
+            [daysOfWeekDict setObject:[NSNumber numberWithInt:num+1] forKey:@"Tuesday"];
+
+        }else if ([day isEqualToString:@"Wednesday"]) {
+            
+            NSNumber *number = [daysOfWeekDict objectForKey:@"Wednesday"];
+            num = [number intValue];
+            [daysOfWeekDict setObject:[NSNumber numberWithInt:num+1] forKey:@"Wednesday"];
+ 
+        }else if ([day isEqualToString:@"Thursday"]) {
+            
+            NSNumber *number = [daysOfWeekDict objectForKey:@"Thursday"];
+            num = [number intValue];
+            [daysOfWeekDict setObject:[NSNumber numberWithInt:num+1] forKey:@"Thursday"];
+
+        }else if ([day isEqualToString:@"Friday"]) {
+            
+            NSNumber *number = [daysOfWeekDict objectForKey:@"Friday"];
+            num = [number intValue];
+            [daysOfWeekDict setObject:[NSNumber numberWithInt:num+1] forKey:@"Friday"];
+
+        }else{
+            NSNumber *number = [daysOfWeekDict objectForKey:@"Monday"];
+            num = [number intValue];
+            [daysOfWeekDict setObject:[NSNumber numberWithInt:num+1] forKey:@"Monday"];
+        }
+        
+        
+    }
+    
+    for(NSString *key in [daysOfWeekDict allKeys]) {
+      //  NSLog(@"%@",[daysOfWeekDict objectForKey:key]);
+    }
+    
+    return daysOfWeekDict;
 }
 
 -(void)setDiameter:(double)dmeter{
