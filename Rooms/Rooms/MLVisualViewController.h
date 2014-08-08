@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "MLDrawing.h"
 
-@interface MLVisualViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface MLVisualViewController : UIViewController <UIGestureRecognizerDelegate> {
     NSArray *beacons;
     NSMutableArray *timestampArray;
     NSMutableArray *days;
     NSMutableArray *months;
     NSMutableArray *numbers;
+    
+    UIPinchGestureRecognizer *pinchGesture;
+    UISwipeGestureRecognizer *swipeGesture;
     
     MLDrawing *drawing;
     double mdiameter;

@@ -55,8 +55,8 @@
                                      target:self
                                    selector:@selector(createDrawing)
                                    userInfo:nil
-                                    repeats:YES];*/
-    
+                                    repeats:YES];
+    */
 }
 
 -(void)parse:(NSString*)time{
@@ -100,54 +100,62 @@
     for (int i=0; i<[timestampArray count]; i++) {
         [self parse:[timestampArray objectAtIndex:i]];
     }
-    
-
 }
 
 -(void)createDrawing {
  
     NSMutableDictionary *daysDict = [[NSMutableDictionary alloc] initWithDictionary:[self countDays]];
     NSLog(@"days %@", [daysDict description]);
-    [self sortKeysOnTheBasisOfCount:daysDict];
+    NSArray *sortedArr = [self sortKeysOnTheBasisOfCount:daysDict];
     
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     
     UIColor *color;
     int count = 0;
     
-    for(NSString *key in [daysDict allKeys]) {
-        NSNumber *num = [daysDict objectForKey:key];
+    for (int i=0; i<[sortedArr count]; i++) {
+      
+        NSString *day = [sortedArr objectAtIndex:i];
+        NSNumber *num = [daysDict valueForKey:[sortedArr objectAtIndex:i]];
+        NSLog(@"day %@ num %@", day, num);
         [arr addObject:num];
         count ++;
-        
-        if([key isEqualToString:@"Monday"]) {
+       
+        if([day isEqualToString:@"Monday"]) {
             color = [UIColor yellowColor];
             
-        }else if ([key isEqualToString:@"Tuesday"]) {
+        }else if ([day isEqualToString:@"Tuesday"]) {
             color = [UIColor orangeColor];
              
-        }else if ([key isEqualToString:@"Wednesday"]) {
+        }else if ([day isEqualToString:@"Wednesday"]) {
             color = [UIColor greenColor];
              
-        }else if([key isEqualToString:@"Thursday"]) {
+        }else if([day isEqualToString:@"Thursday"]) {
             color = [UIColor blueColor];
             
-        }else if([key isEqualToString:@"Friday"]) {
+        }else if([day isEqualToString:@"Friday"]) {
             color = [UIColor purpleColor];
             
         }
 
-            NSLog(@"num %@", arr);
+        NSLog(@"num %@", arr);
 
         [self setDiameter:[num intValue]];
-        lWidth = 20.0;
+        lWidth = 40.0;
         
         drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth andColor:color];
+        drawing.alpha = 0;
         
+        pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+        swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+        [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
+        [self.view addGestureRecognizer:swipeGesture];
+        [self.view addGestureRecognizer:pinchGesture];
         [self.view addSubview:drawing];
         
         drawing.transform = CGAffineTransformMakeScale(.25, .25);
         [UIView animateWithDuration:2*count animations:^(void) {
+            drawing.alpha = 1;
             drawing.transform = CGAffineTransformMakeScale(2, 2);
         }];
 
@@ -158,7 +166,19 @@
     
 }
 
--(void) sortKeysOnTheBasisOfCount:(NSDictionary*)dict{
+-(void)handlePinch:(UIPinchGestureRecognizer*)recognizer {
+
+    [UIView animateWithDuration:1 animations:^(void) {
+        CGAffineTransform transform = CGAffineTransformMakeScale(recognizer.scale, recognizer.scale);
+        self.view.transform = transform;
+    }];
+}
+
+- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe{
+    [self performSegueWithIdentifier:@"homeSegue" sender:self];
+}
+
+-(NSArray*) sortKeysOnTheBasisOfCount:(NSDictionary*)dict{
 
     NSArray * sortArray = [dict keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
         
@@ -177,7 +197,16 @@
     }];
     
     NSArray* reversedArray = [[sortArray reverseObjectEnumerator] allObjects];
-    sortArray = reversedArray;
+    
+   /* NSMutableDictionary *sortedDict = [[NSMutableDictionary alloc] init];
+    
+    for (int i=0; i<[reversedArray count]; i++){
+       
+        NSLog(@"%@ %@", [reversedArray objectAtIndex:i], [dict objectForKey:[reversedArray objectAtIndex:i]]);
+        [sortedDict setObject:[dict objectForKey:[reversedArray objectAtIndex:i]] forKey:[reversedArray objectAtIndex:i]];
+    }
+    NSLog(@"sorted: %@", [sortedDict description]);*/
+    return reversedArray;
 }
 
 -(NSMutableDictionary*)countDays{
@@ -220,7 +249,6 @@
             [daysOfWeekDict setObject:[NSNumber numberWithInt:num+1] forKey:@"Monday"];
         }
         
-        
     }
     
     for(NSString *key in [daysOfWeekDict allKeys]) {
@@ -237,51 +265,6 @@
 -(double)getDiameter{
     return mdiameter;
 }
-
-#pragma mark - Table view data source
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return [days count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-
-    return [days count];
-}
-
-#pragma mark - Table view delegate
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
-    
-    if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
-    }
-
-    cell.detailTextLabel.text = [days objectAtIndex:indexPath.row];
-    
-    return cell;
-}
-
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    return [days objectAtIndex:section];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return 44;
-    
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}*/
-
 
 - (void)didReceiveMemoryWarning
 {

@@ -85,6 +85,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                     </view>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="modal" identifier="homeSegue" id="GhS-h6-Gn4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvg-c4-TcS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -96,4 +99,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="GhS-h6-Gn4"/>
+    </inferredMetricsTieBreakers>
 </document>

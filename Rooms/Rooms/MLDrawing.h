@@ -13,6 +13,7 @@
     float diameter;
     float lineWidth;
     UIColor *colorRef;
+    UILabel *label;
 }
 
 - (id)initWithFrame:(CGRect)frame andDiameter:(double)dmeter andLineWidth:(double)lWidth andColor:(UIColor*)color;

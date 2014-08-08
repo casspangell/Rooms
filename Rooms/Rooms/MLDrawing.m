@@ -38,6 +38,7 @@
     CGRect circlePoint = (CGRectMake(0, 0, diameter, diameter));
     CGContextFillEllipseInRect(contextRef, circlePoint);
     
+    
 }
 
 @end
