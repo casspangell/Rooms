@@ -24,6 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -31,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     self.stashTable.delegate = self;
     self.stashTable.dataSource = self;
     
@@ -49,16 +51,12 @@
 
 -(void) viewDidAppear:(BOOL)animated{
     [self createDrawing];
+    /*[NSTimer scheduledTimerWithTimeInterval:4
+                                     target:self
+                                   selector:@selector(createDrawing)
+                                   userInfo:nil
+                                    repeats:YES];*/
     
-  /*  for (int i=0; i<[hours count]; i++) {
-        [self performSelector:@selector(createDrawing:) withObject:[hours objectAtIndex:i] afterDelay:2.0];
-        [self performSelector:@selector(test) withObject:nil afterDelay:2.0];
-    }
-   */
-}
-
--(void)test{
-   // NSLog(@"test");
 }
 
 -(void)parse:(NSString*)time{
@@ -110,38 +108,76 @@
  
     NSMutableDictionary *daysDict = [[NSMutableDictionary alloc] initWithDictionary:[self countDays]];
     NSLog(@"days %@", [daysDict description]);
+    [self sortKeysOnTheBasisOfCount:daysDict];
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    
     UIColor *color;
+    int count = 0;
     
     for(NSString *key in [daysDict allKeys]) {
         NSNumber *num = [daysDict objectForKey:key];
+        [arr addObject:num];
+        count ++;
         
-        if ([key isEqualToString:@"Tuesday"]) {
+        if([key isEqualToString:@"Monday"]) {
+            color = [UIColor yellowColor];
+            
+        }else if ([key isEqualToString:@"Tuesday"]) {
             color = [UIColor orangeColor];
+             
         }else if ([key isEqualToString:@"Wednesday"]) {
             color = [UIColor greenColor];
+             
         }else if([key isEqualToString:@"Thursday"]) {
             color = [UIColor blueColor];
+            
         }else if([key isEqualToString:@"Friday"]) {
             color = [UIColor purpleColor];
-        }else if([key isEqualToString:@"Monday"]) {
-            color = [UIColor yellowColor];
+            
         }
-        
+
+            NSLog(@"num %@", arr);
+
         [self setDiameter:[num intValue]];
-        lWidth = 10.0;
+        lWidth = 20.0;
         
         drawing = [[MLDrawing alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-(mdiameter/2), (self.view.frame.size.height/2)-(mdiameter/2), mdiameter, mdiameter) andDiameter:mdiameter andLineWidth:lWidth andColor:color];
         
         [self.view addSubview:drawing];
         
-        [UIView animateWithDuration:2 animations:^(void) {
-            drawing.transform = CGAffineTransformMakeScale(5, 5);
+        drawing.transform = CGAffineTransformMakeScale(.25, .25);
+        [UIView animateWithDuration:2*count animations:^(void) {
+            drawing.transform = CGAffineTransformMakeScale(2, 2);
         }];
- 
-       [UIView animateWithDuration:2 animations:^(void) {
+
+       /*[UIView animateWithDuration:5 animations:^(void) {
             drawing.alpha = 0;
-        }];
+        }];*/
     }
+    
+}
+
+-(void) sortKeysOnTheBasisOfCount:(NSDictionary*)dict{
+
+    NSArray * sortArray = [dict keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+        
+        //First value is greather than the second.
+        if ([obj1 intValue] > [obj2 intValue]) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        
+        //First value is less than the second.
+        if ([obj1 intValue] < [obj2 intValue]) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        //Both the values are same
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+    
+    NSArray* reversedArray = [[sortArray reverseObjectEnumerator] allObjects];
+    sortArray = reversedArray;
 }
 
 -(NSMutableDictionary*)countDays{
@@ -203,7 +239,7 @@
 }
 
 #pragma mark - Table view data source
-
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [days count];
@@ -244,7 +280,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-}
+}*/
 
 
 - (void)didReceiveMemoryWarning
