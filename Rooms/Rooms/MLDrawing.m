@@ -19,14 +19,10 @@
         diameter = dmeter;
         lineWidth = lWidth;
         colorRef = color;
-
+        
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
-}
-
--(void)setColor{
-    
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -37,7 +33,6 @@
     CGContextSetRGBFillColor(contextRef, colors[0], colors[1], colors[2], colors[3]);
     CGRect circlePoint = (CGRectMake(0, 0, diameter, diameter));
     CGContextFillEllipseInRect(contextRef, circlePoint);
-    
     
 }
 

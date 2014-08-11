@@ -13,6 +13,8 @@
     NSMutableArray *hours;
     NSMutableArray *minutes;
     NSMutableArray *seconds;
+    NSMutableArray *colors;
+    int counter;
 }
 
 @end
@@ -36,6 +38,18 @@
     self.stashTable.delegate = self;
     self.stashTable.dataSource = self;
     
+    colors = [NSMutableArray array];
+    counter = 0;
+    
+    float INCREMENT = 0.075;
+    for (float hue = 0.0; hue < 1.0; hue += INCREMENT) {
+        UIColor *color = [UIColor colorWithHue:hue
+                                    saturation:1.0
+                                    brightness:1.0
+                                         alpha:1.0];
+        [colors addObject:color];
+    }
+    
     days = [[NSMutableArray alloc] init];
 
     numbers = [[NSMutableArray alloc] init];
@@ -51,12 +65,12 @@
 
 -(void) viewDidAppear:(BOOL)animated{
     [self createDrawing];
-    /*[NSTimer scheduledTimerWithTimeInterval:4
+    [NSTimer scheduledTimerWithTimeInterval:4
                                      target:self
                                    selector:@selector(createDrawing)
                                    userInfo:nil
                                     repeats:YES];
-    */
+    
 }
 
 -(void)parse:(NSString*)time{
@@ -102,6 +116,8 @@
     }
 }
 
+
+//Draws different colored circles based on a count from dictionary
 -(void)createDrawing {
  
     NSMutableDictionary *daysDict = [[NSMutableDictionary alloc] initWithDictionary:[self countDays]];
@@ -112,34 +128,41 @@
     
     UIColor *color;
     int count = 0;
+    counter ++;
     
     for (int i=0; i<[sortedArr count]; i++) {
       
         NSString *day = [sortedArr objectAtIndex:i];
         NSNumber *num = [daysDict valueForKey:[sortedArr objectAtIndex:i]];
-        NSLog(@"day %@ num %@", day, num);
+
         [arr addObject:num];
         count ++;
+        
+        if (counter > [colors count]-1) {
+            counter = 0;
+        }
+        
+        NSLog(@"count %d", counter);
        
         if([day isEqualToString:@"Monday"]) {
-            color = [UIColor yellowColor];
-            
+            color = [colors objectAtIndex:counter];
+
         }else if ([day isEqualToString:@"Tuesday"]) {
-            color = [UIColor orangeColor];
-             
+
+            color = [colors objectAtIndex:counter];
+
         }else if ([day isEqualToString:@"Wednesday"]) {
-            color = [UIColor greenColor];
-             
+            color = [colors objectAtIndex:counter];
+  
         }else if([day isEqualToString:@"Thursday"]) {
-            color = [UIColor blueColor];
-            
+            color = [colors objectAtIndex:counter];
+        
         }else if([day isEqualToString:@"Friday"]) {
-            color = [UIColor purpleColor];
-            
+            color = [colors objectAtIndex:counter];
+
         }
 
-        NSLog(@"num %@", arr);
-
+        counter++;
         [self setDiameter:[num intValue]];
         lWidth = 40.0;
         
@@ -148,34 +171,24 @@
         
         pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
         swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+        singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
         [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
         [self.view addGestureRecognizer:swipeGesture];
         [self.view addGestureRecognizer:pinchGesture];
+        [self.view addGestureRecognizer:singleTapGesture];
         [self.view addSubview:drawing];
         
         drawing.transform = CGAffineTransformMakeScale(.25, .25);
         [UIView animateWithDuration:2*count animations:^(void) {
             drawing.alpha = 1;
-            drawing.transform = CGAffineTransformMakeScale(2, 2);
+            drawing.transform = CGAffineTransformMakeScale(1, 1);
         }];
 
-       /*[UIView animateWithDuration:5 animations:^(void) {
-            drawing.alpha = 0;
-        }];*/
+       [UIView animateWithDuration:4 animations:^(void) {
+            drawing.contentMode = UIViewContentModeScaleAspectFit;
+        }];
     }
     
-}
-
--(void)handlePinch:(UIPinchGestureRecognizer*)recognizer {
-
-    [UIView animateWithDuration:1 animations:^(void) {
-        CGAffineTransform transform = CGAffineTransformMakeScale(recognizer.scale, recognizer.scale);
-        self.view.transform = transform;
-    }];
-}
-
-- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe{
-    [self performSegueWithIdentifier:@"homeSegue" sender:self];
 }
 
 -(NSArray*) sortKeysOnTheBasisOfCount:(NSDictionary*)dict{
@@ -197,15 +210,7 @@
     }];
     
     NSArray* reversedArray = [[sortArray reverseObjectEnumerator] allObjects];
-    
-   /* NSMutableDictionary *sortedDict = [[NSMutableDictionary alloc] init];
-    
-    for (int i=0; i<[reversedArray count]; i++){
-       
-        NSLog(@"%@ %@", [reversedArray objectAtIndex:i], [dict objectForKey:[reversedArray objectAtIndex:i]]);
-        [sortedDict setObject:[dict objectForKey:[reversedArray objectAtIndex:i]] forKey:[reversedArray objectAtIndex:i]];
-    }
-    NSLog(@"sorted: %@", [sortedDict description]);*/
+  
     return reversedArray;
 }
 
@@ -213,7 +218,7 @@
     NSMutableDictionary *daysOfWeekDict = [[NSMutableDictionary alloc] init];
     NSMutableArray *daysOfWeekArray = [[NSMutableArray alloc] init];
     [daysOfWeekArray insertObject:[NSNumber numberWithInt:0] atIndex:0];
-    [daysOfWeekArray addObject:@"color"];
+    //[daysOfWeekArray addObject:@"color"];
     int num = 0;
     
     for (int i=0; i<[days count]; i++) {
@@ -264,6 +269,25 @@
 
 -(double)getDiameter{
     return mdiameter;
+}
+
+#pragma mark - Gestures
+-(void)handlePinch:(UIPinchGestureRecognizer*)recognizer {
+    
+    [UIView animateWithDuration:1 animations:^(void) {
+        CGAffineTransform transform = CGAffineTransformMakeScale(recognizer.scale, recognizer.scale);
+        self.view.transform = transform;
+    }];
+}
+
+- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe{
+    [self performSegueWithIdentifier:@"homeSegue" sender:self];
+}
+
+-(void)handleSingleTap:(UISwipeGestureRecognizer*)tap{
+
+    //nothing yet
+    
 }
 
 - (void)didReceiveMemoryWarning

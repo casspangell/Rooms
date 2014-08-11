@@ -18,10 +18,12 @@
     
     UIPinchGestureRecognizer *pinchGesture;
     UISwipeGestureRecognizer *swipeGesture;
+    UITapGestureRecognizer *singleTapGesture;
     
     MLDrawing *drawing;
     double mdiameter;
     double lWidth;
+    
 }
 @property (nonatomic) IBOutlet UITableView *stashTable;
 
