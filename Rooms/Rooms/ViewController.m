@@ -50,7 +50,7 @@
     }];
     
     if (didSave) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is now stashed." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is now stashed. To remove beacon, tap it below. Data will not be removed. To delete beacon history go to Settings." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alert show];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is already stashed." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
@@ -66,6 +66,7 @@
     }];
 }
 
+#pragma mark - Beacon Management
 -(void)addBeaconToArray:(ESTBeacon*)beacon{
     NSLog(@"beacon adding to array %@", beacon);
     
@@ -77,7 +78,22 @@
     
     [defaults setObject:_beacons forKey:@"beacons"];
     NSLog(@"beacons added %@", [defaults objectForKey:@"beacons"]);
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
     
+}
+
+-(void)removeBeaconFromArray:(ESTBeacon*)beacon{
+    NSLog(@"Removing %@ from array", beacon);
+    NSMutableArray *beacons = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
+    [beacons removeObject:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:beacons forKey:@"beacons"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Removed %@-%@", beacon.major, beacon.minor] message:@"Beacon history  will not be removed. You can re-add beacon at anytime. Go to Settings to delete beacon history." delegate:self cancelButtonTitle:@"Ok"otherButtonTitles: nil];
+    [alert show];
+    
+
+    [self.beaconTable reloadData];
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 }
 
 -(NSMutableArray*)getInternalBeacons{
@@ -90,6 +106,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self fadeOn];
     
+    if (alertView.tag == 2) {
+
+    }
     [_beaconTable reloadData];
 }
 
@@ -184,7 +203,7 @@
         
     }else {
         if ([[self getInternalBeacons] count]>0){
-            return @"Saved Beacons in Stash";
+            return @"Saved Beacons in Stash - Tap to Remove";
         }else{
             return @"No Beacons in Stash";
         }
@@ -224,6 +243,11 @@
                 [self addBeaconToArray:selectedBeacon];
                 [self fade:YES];
             }
+        }
+        
+        else{
+            ESTBeacon *selectedBeacon = [_beaconsArray objectAtIndex:indexPath.row];
+            [self removeBeaconFromArray:selectedBeacon];
         }
 
     }

@@ -41,7 +41,7 @@
     colors = [NSMutableArray array];
     counter = 0;
     
-    float INCREMENT = 0.075;
+    float INCREMENT = 0.2;
     for (float hue = 0.0; hue < 1.0; hue += INCREMENT) {
         UIColor *color = [UIColor colorWithHue:hue
                                     saturation:1.0
@@ -65,11 +65,11 @@
 
 -(void) viewDidAppear:(BOOL)animated{
     [self createDrawing];
-    [NSTimer scheduledTimerWithTimeInterval:4
+    /*[NSTimer scheduledTimerWithTimeInterval:4
                                      target:self
                                    selector:@selector(createDrawing)
                                    userInfo:nil
-                                    repeats:YES];
+                                    repeats:YES];*/
     
 }
 
@@ -141,8 +141,6 @@
         if (counter > [colors count]-1) {
             counter = 0;
         }
-        
-        NSLog(@"count %d", counter);
        
         if([day isEqualToString:@"Monday"]) {
             color = [colors objectAtIndex:counter];

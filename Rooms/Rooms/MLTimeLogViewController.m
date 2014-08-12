@@ -54,6 +54,7 @@
     NSString* key = [NSString stringWithFormat:@"%@-time", [beacons objectAtIndex:section]];
 
     timestampArray = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    //NSLog(@"%@", timestampArray);
     return [timestampArray count];
 }
 
