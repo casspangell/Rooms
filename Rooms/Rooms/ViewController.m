@@ -11,6 +11,7 @@
 #import "ESTBeaconManager.h"
 #import "MLTimeLogViewController.h"
 #import "MLVisualViewController.h"
+#import "SettingsViewController.h"
 
 #import <AudioToolbox/AudioServices.h>
 
@@ -52,7 +53,7 @@
     }];
     
     if (didSave) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is now stashed. To remove beacon, tap it below. Data will not be removed. To delete beacon history go to Settings." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is now stashed. To remove beacon, tap it below." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alert show];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Beacon is already stashed." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
@@ -84,9 +85,13 @@
     
 }
 
--(void)removeBeaconFromArray:(ESTBeacon*)beacon{
-    NSLog(@"Removing %@ from array", beacon);
-    NSMutableArray *beacons = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
+
+
+-(void)beaconSettings:(ESTBeacon*)beacon{
+    NSLog(@"settings %@", beacon);
+
+    
+    /*NSMutableArray *beacons = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
     [beacons removeObject:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]];
     
     [[NSUserDefaults standardUserDefaults] setObject:beacons forKey:@"beacons"];
@@ -95,7 +100,7 @@
     
 
     [self.beaconTable reloadData];
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);*/
 }
 
 -(NSMutableArray*)getInternalBeacons{
@@ -123,6 +128,15 @@
         [self performSegueWithIdentifier:@"seeBeaconStashData" sender:self];
     }
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"settingsSegue"]) {
+        NSLog(@"sender %@", sender);
+        SettingsViewController *destViewController = segue.destinationViewController;
+        destViewController.beaconMajorMinor = sender;
+    }
 }
 
 #pragma mark - Table view data source
@@ -187,7 +201,7 @@
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
 
         cell.detailTextLabel.numberOfLines = 3;
-        cell.detailTextLabel.text = @"Tap to remove.\rSwipe right to view visual data.\rSwipe left to view historical data.";
+        cell.detailTextLabel.text = @"Tap for settings.\rSwipe right to view visual data.\rSwipe left to view historical data.";
         cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
         cell.imageView.image = nil;
     }
@@ -230,8 +244,6 @@
     defaults = [NSUserDefaults standardUserDefaults];
     NSArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
 
-    if ([_beaconsArray count] > 0) {
-        
         if (indexPath.section == 0) {
             if ([savedbeacons containsObject:[NSString stringWithFormat:@"%@-%@", selectedBeacon.major, selectedBeacon.minor]]) {
                 NSLog(@"beacon already saved");
@@ -250,11 +262,9 @@
         }
         
         else{
-            ESTBeacon *selectedBeacon = [_beaconsArray objectAtIndex:indexPath.row];
-            [self removeBeaconFromArray:selectedBeacon];
+            ESTBeacon *selectedBeacon = [savedbeacons objectAtIndex:indexPath.row];
+            [self performSegueWithIdentifier:@"settingsSegue" sender:selectedBeacon];
         }
-
-    }
 }
 
 #pragma mark - ESTBeaconManager delegate

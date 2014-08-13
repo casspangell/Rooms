@@ -26,7 +26,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    _settingsLabel.text = [NSString stringWithFormat:@"Settings for %@ beacon:", _beaconMajorMinor];
+    
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.view addGestureRecognizer:swipeGesture];
+
+}
+
+#pragma mark - Segue
+- (void)handleSwipe:(UISwipeGestureRecognizer*)swipe{
+    
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self performSegueWithIdentifier:@"homeSegue" sender:self];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
