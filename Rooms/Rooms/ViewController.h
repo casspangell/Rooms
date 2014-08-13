@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ESTBeacon.h"
+#import "ESTBeaconManager.h"
 
 @interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate> {
     NSUserDefaults *defaults;
@@ -27,7 +28,12 @@
 @property (nonatomic, strong) NSArray *defaultsArray;
 @property (nonatomic) IBOutlet UILabel *selectLabel;
 
+@property (nonatomic, strong) ESTBeacon         *beacon;
+@property (nonatomic, strong) ESTBeaconManager  *beaconManager;
+@property (nonatomic, strong) ESTBeaconRegion   *beaconRegion;
+
 -(void)addBeaconToArray:(ESTBeacon*)beacon;
 -(NSMutableArray*)getInternalBeacons;
+-(void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region;
 
 @end

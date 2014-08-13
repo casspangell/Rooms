@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "AppDelegate.h"
 #import "ESTBeaconManager.h"
 #import "MLTimeLogViewController.h"
 #import "MLVisualViewController.h"
@@ -18,9 +19,7 @@
     BOOL timerflag;
 }
 
-@property (nonatomic, strong) ESTBeacon         *beacon;
-@property (nonatomic, strong) ESTBeaconManager  *beaconManager;
-@property (nonatomic, strong) ESTBeaconRegion   *beaconRegion;
+
 
 @end
 
@@ -29,6 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.MainController = self;
     
     _savedBeaconsArray = [[NSMutableArray alloc] init];
     self.beaconTable.delegate = self;
@@ -184,7 +186,8 @@
         NSString *bstring = [beacons objectAtIndex:indexPath.row];
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
 
-        cell.detailTextLabel.text = @"swipe right to view visual data";
+        cell.detailTextLabel.numberOfLines = 3;
+        cell.detailTextLabel.text = @"Tap to remove.\rSwipe right to view visual data.\rSwipe left to view historical data.";
         cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
         cell.imageView.image = nil;
     }
@@ -193,7 +196,7 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
+
     if (section == 0) {
         if ([_beaconsArray count] > 0) {
             return @"Found beacon - Tap to activate.";
@@ -202,8 +205,9 @@
         }
         
     }else {
+
         if ([[self getInternalBeacons] count]>0){
-            return @"Saved Beacons in Stash - Tap to Remove";
+            return @"Saved Beacons in Stash";
         }else{
             return @"No Beacons in Stash";
         }
@@ -213,7 +217,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([indexPath section] == 1) {
-        return 45;//45
+        return 100;//45
     }else{
         return 80;
     }

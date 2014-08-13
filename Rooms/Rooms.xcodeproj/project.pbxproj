@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8943718A19916FD7000200DA /* MLVisualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8943718919916FD7000200DA /* MLVisualViewController.m */; };
 		8943718D19918A3E000200DA /* MLDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8943718C19918A3E000200DA /* MLDrawing.m */; };
+		89437193199AC658000200DA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89437192199AC658000200DA /* SettingsViewController.m */; };
 		8962ADD91986BFE300F1211D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADD81986BFE300F1211D /* Foundation.framework */; };
 		8962ADDB1986BFE300F1211D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDA1986BFE300F1211D /* CoreGraphics.framework */; };
 		8962ADDD1986BFE300F1211D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDC1986BFE300F1211D /* UIKit.framework */; };
@@ -49,6 +50,8 @@
 		8943718919916FD7000200DA /* MLVisualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVisualViewController.m; sourceTree = "<group>"; };
 		8943718B19918A3E000200DA /* MLDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDrawing.h; sourceTree = "<group>"; };
 		8943718C19918A3E000200DA /* MLDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDrawing.m; sourceTree = "<group>"; };
+		89437191199AC658000200DA /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		89437192199AC658000200DA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		8962ADD51986BFE300F1211D /* Rooms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rooms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8962ADD81986BFE300F1211D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8962ADDA1986BFE300F1211D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -158,6 +161,8 @@
 				8962ADEA1986BFE300F1211D /* Main.storyboard */,
 				8962ADED1986BFE300F1211D /* ViewController.h */,
 				8962ADEE1986BFE300F1211D /* ViewController.m */,
+				89437191199AC658000200DA /* SettingsViewController.h */,
+				89437192199AC658000200DA /* SettingsViewController.m */,
 				89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */,
 				89BD300A198C09EB00E86446 /* MLTimeLogViewController.m */,
 				8943718819916FD7000200DA /* MLVisualViewController.h */,
@@ -332,6 +337,7 @@
 				8943718A19916FD7000200DA /* MLVisualViewController.m in Sources */,
 				8962ADE51986BFE300F1211D /* main.m in Sources */,
 				8943718D19918A3E000200DA /* MLDrawing.m in Sources */,
+				89437193199AC658000200DA /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

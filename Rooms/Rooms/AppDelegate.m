@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+
 
 @implementation AppDelegate
 
@@ -26,6 +28,18 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+   /* self.MainController.beaconManager = [[ESTBeaconManager alloc] init];
+    self.MainController.beaconManager.delegate = self;
+    
+    self.MainController.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.MainController.beacon.proximityUUID
+                                                                 major:[self.MainController.beacon.major unsignedIntValue]
+                                                                 minor:[self.MainController.beacon.minor unsignedIntValue]
+                                                            identifier:@"RegionIdentifier"];
+    [self.MainController.beaconManager startRangingBeaconsInRegion:self.MainController.beaconRegion];
+
+    */
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

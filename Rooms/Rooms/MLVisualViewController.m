@@ -15,6 +15,7 @@
     NSMutableArray *seconds;
     NSMutableArray *colors;
     int counter;
+    UIView *drawingsView;
 }
 
 @end
@@ -50,6 +51,9 @@
         [colors addObject:color];
     }
     
+    drawingsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view addSubview:drawingsView];
+    
     days = [[NSMutableArray alloc] init];
 
     numbers = [[NSMutableArray alloc] init];
@@ -58,8 +62,13 @@
     seconds = [[NSMutableArray alloc] init];
     
     [self getBeacons];
-    
     [self getNumbers];
+    
+    UILabel *descr = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 45, self.view.frame.size.width, 45)];
+    descr.text = @"Swipe left to return.";
+    descr.textColor = [UIColor whiteColor];
+    descr.font = [UIFont systemFontOfSize:14];
+    [self.view addSubview:descr];
 
 }
 
@@ -170,11 +179,11 @@
         pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
         swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
         singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-        [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
-        [self.view addGestureRecognizer:swipeGesture];
-        [self.view addGestureRecognizer:pinchGesture];
-        [self.view addGestureRecognizer:singleTapGesture];
-        [self.view addSubview:drawing];
+        [swipeGesture setDirection:UISwipeGestureRecognizerDirectionLeft];
+        [drawingsView addGestureRecognizer:swipeGesture];
+        [drawingsView addGestureRecognizer:pinchGesture];
+        [drawingsView addGestureRecognizer:singleTapGesture];
+        [drawingsView addSubview:drawing];
         
         drawing.transform = CGAffineTransformMakeScale(.25, .25);
         [UIView animateWithDuration:2*count animations:^(void) {
