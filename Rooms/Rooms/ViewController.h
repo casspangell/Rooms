@@ -9,14 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ESTBeacon.h"
 #import "ESTBeaconManager.h"
+#import "MainViewTableViewCell.h"
 
-@interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate> {
+@interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate, SWTableViewCellDelegate> {
     NSUserDefaults *defaults;
     NSMutableDictionary *beaconData;
 }
 
 @property (nonatomic) IBOutlet UITableView *beaconTable;
 @property (nonatomic) IBOutlet UITableView *stashedBeaconTable;
+@property (nonatomic) IBOutlet MainViewTableViewCell *mvTableViewCell;
 @property (nonatomic) IBOutlet UITableViewCell *tableViewCell;
 
 @property (nonatomic, strong) NSMutableArray *beaconsArray;

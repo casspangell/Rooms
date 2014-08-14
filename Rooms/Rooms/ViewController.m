@@ -257,7 +257,7 @@
     if ([indexPath section] == 1) {
         return 100;//45
     }else{
-        return 80;
+        return 50;
     }
 }
 

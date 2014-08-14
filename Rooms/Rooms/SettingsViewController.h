@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ESTBeacon.h"
 
-@interface SettingsViewController : UIViewController <ESTBeaconDelegate>
+@interface SettingsViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSString *beaconMajorMinor;
 @property (nonatomic) IBOutlet UILabel *settingsLabel;
+@property (nonatomic) IBOutlet UITableView *settingsTable;
 
 @end

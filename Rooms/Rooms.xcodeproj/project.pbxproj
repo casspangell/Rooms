@@ -11,6 +11,14 @@
 		8943718D19918A3E000200DA /* MLDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8943718C19918A3E000200DA /* MLDrawing.m */; };
 		89437193199AC658000200DA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89437192199AC658000200DA /* SettingsViewController.m */; };
 		89437195199D2385000200DA /* redbeacon.png in Resources */ = {isa = PBXBuildFile; fileRef = 89437194199D2385000200DA /* redbeacon.png */; };
+		894371A8199D68C6000200DA /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 8943719D199D68C6000200DA /* NSMutableArray+SWUtilityButtons.m */; };
+		894371A9199D68C6000200DA /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8943719F199D68C6000200DA /* SWCellScrollView.m */; };
+		894371AA199D68C6000200DA /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371A1199D68C6000200DA /* SWLongPressGestureRecognizer.m */; };
+		894371AB199D68C6000200DA /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371A3199D68C6000200DA /* SWTableViewCell.m */; };
+		894371AC199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371A5199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m */; };
+		894371AD199D68C6000200DA /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371A7199D68C6000200DA /* SWUtilityButtonView.m */; };
+		894371B0199D6937000200DA /* MainViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371AF199D6937000200DA /* MainViewTableViewCell.m */; };
+		894371B6199D6FC9000200DA /* MainViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371B5199D6FC9000200DA /* MainViewTableViewController.m */; };
 		8962ADD91986BFE300F1211D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADD81986BFE300F1211D /* Foundation.framework */; };
 		8962ADDB1986BFE300F1211D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDA1986BFE300F1211D /* CoreGraphics.framework */; };
 		8962ADDD1986BFE300F1211D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDC1986BFE300F1211D /* UIKit.framework */; };
@@ -54,6 +62,22 @@
 		89437191199AC658000200DA /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		89437192199AC658000200DA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		89437194199D2385000200DA /* redbeacon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redbeacon.png; sourceTree = "<group>"; };
+		8943719C199D68C6000200DA /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		8943719D199D68C6000200DA /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		8943719E199D68C6000200DA /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
+		8943719F199D68C6000200DA /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
+		894371A0199D68C6000200DA /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		894371A1199D68C6000200DA /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		894371A2199D68C6000200DA /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
+		894371A3199D68C6000200DA /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
+		894371A4199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		894371A5199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		894371A6199D68C6000200DA /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
+		894371A7199D68C6000200DA /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
+		894371AE199D6937000200DA /* MainViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewTableViewCell.h; sourceTree = "<group>"; };
+		894371AF199D6937000200DA /* MainViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewTableViewCell.m; sourceTree = "<group>"; };
+		894371B4199D6FC9000200DA /* MainViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewTableViewController.h; sourceTree = "<group>"; };
+		894371B5199D6FC9000200DA /* MainViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewTableViewController.m; sourceTree = "<group>"; };
 		8962ADD51986BFE300F1211D /* Rooms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rooms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8962ADD81986BFE300F1211D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8962ADDA1986BFE300F1211D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -120,6 +144,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8943719B199D68B7000200DA /* SWCell */ = {
+			isa = PBXGroup;
+			children = (
+				8943719C199D68C6000200DA /* NSMutableArray+SWUtilityButtons.h */,
+				8943719D199D68C6000200DA /* NSMutableArray+SWUtilityButtons.m */,
+				8943719E199D68C6000200DA /* SWCellScrollView.h */,
+				8943719F199D68C6000200DA /* SWCellScrollView.m */,
+				894371A0199D68C6000200DA /* SWLongPressGestureRecognizer.h */,
+				894371A1199D68C6000200DA /* SWLongPressGestureRecognizer.m */,
+				894371A2199D68C6000200DA /* SWTableViewCell.h */,
+				894371A3199D68C6000200DA /* SWTableViewCell.m */,
+				894371A4199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.h */,
+				894371A5199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m */,
+				894371A6199D68C6000200DA /* SWUtilityButtonView.h */,
+				894371A7199D68C6000200DA /* SWUtilityButtonView.m */,
+			);
+			name = SWCell;
+			sourceTree = "<group>";
+		};
+		894371B7199D70F9000200DA /* Main View */ = {
+			isa = PBXGroup;
+			children = (
+				8962ADED1986BFE300F1211D /* ViewController.h */,
+				8962ADEE1986BFE300F1211D /* ViewController.m */,
+				894371B4199D6FC9000200DA /* MainViewTableViewController.h */,
+				894371B5199D6FC9000200DA /* MainViewTableViewController.m */,
+				894371AE199D6937000200DA /* MainViewTableViewCell.h */,
+				894371AF199D6937000200DA /* MainViewTableViewCell.m */,
+			);
+			name = "Main View";
+			sourceTree = "<group>";
+		};
 		8962ADCC1986BFE300F1211D = {
 			isa = PBXGroup;
 			children = (
@@ -161,8 +217,7 @@
 				8962ADE71986BFE300F1211D /* AppDelegate.h */,
 				8962ADE81986BFE300F1211D /* AppDelegate.m */,
 				8962ADEA1986BFE300F1211D /* Main.storyboard */,
-				8962ADED1986BFE300F1211D /* ViewController.h */,
-				8962ADEE1986BFE300F1211D /* ViewController.m */,
+				894371B7199D70F9000200DA /* Main View */,
 				89437191199AC658000200DA /* SettingsViewController.h */,
 				89437192199AC658000200DA /* SettingsViewController.m */,
 				89BD3009198C09EB00E86446 /* MLTimeLogViewController.h */,
@@ -171,6 +226,7 @@
 				8943718919916FD7000200DA /* MLVisualViewController.m */,
 				8943718B19918A3E000200DA /* MLDrawing.h */,
 				8943718C19918A3E000200DA /* MLDrawing.m */,
+				8943719B199D68B7000200DA /* SWCell */,
 				89BD3016198C27C900E86446 /* Images */,
 				8962ADF01986BFE300F1211D /* Images.xcassets */,
 				8962ADDF1986BFE300F1211D /* Supporting Files */,
@@ -339,9 +395,17 @@
 				8962ADEF1986BFE300F1211D /* ViewController.m in Sources */,
 				8962ADE91986BFE300F1211D /* AppDelegate.m in Sources */,
 				8943718A19916FD7000200DA /* MLVisualViewController.m in Sources */,
+				894371AB199D68C6000200DA /* SWTableViewCell.m in Sources */,
+				894371B0199D6937000200DA /* MainViewTableViewCell.m in Sources */,
+				894371B6199D6FC9000200DA /* MainViewTableViewController.m in Sources */,
+				894371AC199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				8962ADE51986BFE300F1211D /* main.m in Sources */,
 				8943718D19918A3E000200DA /* MLDrawing.m in Sources */,
+				894371AD199D68C6000200DA /* SWUtilityButtonView.m in Sources */,
+				894371AA199D68C6000200DA /* SWLongPressGestureRecognizer.m in Sources */,
+				894371A9199D68C6000200DA /* SWCellScrollView.m in Sources */,
 				89437193199AC658000200DA /* SettingsViewController.m in Sources */,
+				894371A8199D68C6000200DA /* NSMutableArray+SWUtilityButtons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

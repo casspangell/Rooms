@@ -8,7 +8,9 @@
 
 #import "SettingsViewController.h"
 
-@interface SettingsViewController ()
+@interface SettingsViewController () {
+    NSMutableArray *optionsArray;
+}
 
 @end
 
@@ -34,6 +36,11 @@
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.view addGestureRecognizer:swipeGesture];
+    
+    self.settingsTable.delegate = self;
+    self.settingsTable.dataSource = self;
+    
+    optionsArray = [[NSMutableArray alloc] initWithObjects:@"Remove beacon from stash", @"Delete beacon data history", nil];
 
 }
 
@@ -44,6 +51,52 @@
         [self performSegueWithIdentifier:@"homeSegue" sender:self];
     }
     
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [optionsArray count];
+}
+
+#pragma mark - Table view delegate
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+    
+    if(!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
+    }
+    
+    cell.textLabel.text = [optionsArray objectAtIndex:indexPath.row];
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    return cell;
+}
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return 100;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
 }
 
 - (void)didReceiveMemoryWarning
