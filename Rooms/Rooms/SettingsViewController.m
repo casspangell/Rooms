@@ -27,7 +27,9 @@
 {
     [super viewDidLoad];
     
+    ESTBeacon *beacon = [[NSUserDefaults standardUserDefaults] objectForKey:_beaconMajorMinor];
     _settingsLabel.text = [NSString stringWithFormat:@"Settings for %@ beacon:", _beaconMajorMinor];
+    NSLog(@"beacon %@", beacon);
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];

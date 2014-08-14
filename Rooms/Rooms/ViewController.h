@@ -17,6 +17,7 @@
 
 @property (nonatomic) IBOutlet UITableView *beaconTable;
 @property (nonatomic) IBOutlet UITableView *stashedBeaconTable;
+@property (nonatomic) IBOutlet UITableViewCell *tableViewCell;
 
 @property (nonatomic, strong) NSMutableArray *beaconsArray;
 @property (nonatomic) NSMutableArray *savedBeaconsArray;

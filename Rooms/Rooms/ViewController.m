@@ -17,7 +17,7 @@
 
 @interface ViewController () <ESTBeaconManagerDelegate>{
     NSMutableArray *beaconsPrevSaved;
-    BOOL timerflag;
+    int beaconflag;
 }
 
 
@@ -161,19 +161,19 @@
 #pragma mark - Table view delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+    _tableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
     
-    if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
+    if(!_tableViewCell){
+        _tableViewCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
     }
 
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
-    [cell.contentView addGestureRecognizer:swipeGesture];
+    [_tableViewCell.contentView addGestureRecognizer:swipeGesture];
     
     UISwipeGestureRecognizer *swipeGestureL = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGestureL setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [cell.contentView addGestureRecognizer:swipeGestureL];
+    [_tableViewCell.contentView addGestureRecognizer:swipeGestureL];
     
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
     defaults = [NSUserDefaults standardUserDefaults];
@@ -188,9 +188,14 @@
         }
 
         beacon = [_foundBeaconsArray objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
-        cell.imageView.image = [UIImage imageNamed:@"beacon"];
+        _tableViewCell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
+        _tableViewCell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
+        
+        if (beaconflag == 1) {
+            [self changeBeaconState:_tableViewCell];
+        }else{
+            _tableViewCell.imageView.image = [UIImage imageNamed:@"beacon"];
+        }
    
     //Load Stashed Beacons
     }else{
@@ -200,13 +205,27 @@
         NSString *bstring = [beacons objectAtIndex:indexPath.row];
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
 
-        cell.detailTextLabel.numberOfLines = 3;
-        cell.detailTextLabel.text = @"Tap for settings.\rSwipe right to view visual data.\rSwipe left to view historical data.";
-        cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
-        cell.imageView.image = nil;
+        _tableViewCell.detailTextLabel.numberOfLines = 3;
+        _tableViewCell.detailTextLabel.text = @"Tap for settings.\rSwipe right to view visual data.\rSwipe left to view historical data.";
+        _tableViewCell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
+        _tableViewCell.imageView.image = nil;
     }
 
-    return cell;
+    return _tableViewCell;
+}
+
+-(void)changeBeaconState:(UITableViewCell*)cell{
+    NSLog(@"state %@", cell);
+    
+    UIImage *beaconFoundImage = [UIImage imageNamed:@"redbeacon.png"];
+    cell.imageView.image = beaconFoundImage;
+    cell.imageView.alpha = 0;
+    
+    [UIView animateWithDuration:.5 animations:^{
+        cell.imageView.alpha = 1;
+        
+    }];
+    beaconflag = 0;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -306,6 +325,7 @@
                 }else{
                     if(![[self grabProximity:beacon.proximity] isEqualToString:@"Unknown"]){
                         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                        
                     }
                 }
             }
@@ -337,17 +357,20 @@
         }
         
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-        
+        beaconflag = 1;
         //NSLog(@"dict1 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
         
     }else{
         
         [timestampArray addObject:newTime];
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
+        beaconflag = 1;
         
         //NSLog(@"dict2 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
     }
 }
+
+
 
 -(NSArray*)parseString:(NSString*)comp{
     NSArray *comp2 = [comp componentsSeparatedByString:@"at "];
