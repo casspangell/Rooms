@@ -18,6 +18,7 @@
 @interface ViewController () <ESTBeaconManagerDelegate>{
     NSMutableArray *beaconsPrevSaved;
     int beaconflag;
+    ESTBeacon *pingBeacon;
 }
 
 
@@ -191,8 +192,13 @@
         _tableViewCell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
         _tableViewCell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
         
-        _tableViewCell.imageView.image = [self changeBeaconState:_tableViewCell];
-
+        if (pingBeacon.major == beacon.major) {
+            _tableViewCell.imageView.image = [self changeBeaconState:_tableViewCell];
+        }else{
+             _tableViewCell.imageView.image = [UIImage imageNamed:@"beacon"];
+        }
+        
+    
     //Load Stashed Beacons
     }else{
         NSArray *beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
@@ -212,7 +218,7 @@
 
 -(UIImage*)changeBeaconState:(UITableViewCell*)cell{
     UIImage *beaconImage;
-    
+
     if (beaconflag == 1){
         
         beaconImage = [UIImage imageNamed:@"redbeacon.png"];
@@ -222,13 +228,6 @@
         beaconImage = [UIImage imageNamed:@"beacon"];
     }
     
-   /* cell.imageView.image = beaconImage;
-    cell.imageView.alpha = 0;
-    
-    [UIView animateWithDuration:.5 animations:^{
-        cell.imageView.alpha = 1;
-        
-    }];*/
     beaconflag = 0;
     
     return beaconImage;
@@ -343,6 +342,7 @@
 
 -(void)setBeaconInDict:(ESTBeacon*)beacon :(NSString*)timestamp
 {
+    pingBeacon = beacon;
     NSString *key = [NSString stringWithFormat:@"%@-%@-time", beacon.major, beacon.minor];
     
     NSArray *components = [timestamp componentsSeparatedByString:@"Mountain Daylight Time"];
@@ -363,7 +363,6 @@
         }
         
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-        
         //NSLog(@"dict1 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
         
     }else{
@@ -371,7 +370,6 @@
         [timestampArray addObject:newTime];
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
         beaconflag = 1;
-        
         //NSLog(@"dict2 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
     }
 }
