@@ -191,12 +191,8 @@
         _tableViewCell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
         _tableViewCell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
         
-        if (beaconflag == 1) {
-            [self changeBeaconState:_tableViewCell];
-        }else{
-            _tableViewCell.imageView.image = [UIImage imageNamed:@"beacon"];
-        }
-   
+        _tableViewCell.imageView.image = [self changeBeaconState:_tableViewCell];
+
     //Load Stashed Beacons
     }else{
         NSArray *beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
@@ -214,18 +210,28 @@
     return _tableViewCell;
 }
 
--(void)changeBeaconState:(UITableViewCell*)cell{
-    NSLog(@"state %@", cell);
+-(UIImage*)changeBeaconState:(UITableViewCell*)cell{
+    UIImage *beaconImage;
     
-    UIImage *beaconFoundImage = [UIImage imageNamed:@"redbeacon.png"];
-    cell.imageView.image = beaconFoundImage;
+    if (beaconflag == 1){
+        
+        beaconImage = [UIImage imageNamed:@"redbeacon.png"];
+
+    }else{
+        
+        beaconImage = [UIImage imageNamed:@"beacon"];
+    }
+    
+   /* cell.imageView.image = beaconImage;
     cell.imageView.alpha = 0;
     
     [UIView animateWithDuration:.5 animations:^{
         cell.imageView.alpha = 1;
         
-    }];
+    }];*/
     beaconflag = 0;
+    
+    return beaconImage;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -300,20 +306,19 @@
         for (int i=0; i<[beacons count]; i++) {
             ESTBeacon *beacon = [beacons objectAtIndex:i];
             
+            //Beacon's distance is unknown
             if ([beacon.distance isEqualToNumber:[NSNumber numberWithDouble:-1.00]]) {
                 //don't add to array
             }else{
                 [_beaconsArray addObject:[beacons objectAtIndex:i]];
             }
             
+            //If one of the stashed beacons is close, add the time to the dictionary
             for (int i=0; i< [savedbeacons count]; i++) {
                 NSString *savedBeacon = [savedbeacons objectAtIndex:i];
                 
                 if ([savedBeacon isEqualToString:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]]) {
-                    // NSLocale* currentLocale = [NSLocale currentLocale];
-                    
-#pragma mark - DO SOMETHING WITH THE BEACON IN PROXIMITY
-                    //if ([[self grabProximity:beacon.proximity] isEqualToString:@"Near"] || [[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
+
                     if ([[self grabProximity:beacon.proximity] isEqualToString:@"Immediate"]) {
                         
                         NSLocale* currentLocale = [NSLocale currentLocale];
@@ -324,7 +329,7 @@
                 //This beacon isn't stashed yet!
                 }else{
                     if(![[self grabProximity:beacon.proximity] isEqualToString:@"Unknown"]){
-                        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                        //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
                         
                     }
                 }
@@ -354,10 +359,11 @@
         if ([self compareTime:[self parseString:lastObj] :[self parseString:newTime]]) {
          [timestampArray addObject:newTime];
         AudioServicesPlaySystemSound (1052);
+            beaconflag = 1;
         }
         
         [[NSUserDefaults standardUserDefaults] setObject:timestampArray forKey:key];
-        beaconflag = 1;
+        
         //NSLog(@"dict1 %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
         
     }else{
