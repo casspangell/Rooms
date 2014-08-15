@@ -31,7 +31,7 @@
     
     ESTBeacon *beacon = [[NSUserDefaults standardUserDefaults] objectForKey:_beaconMajorMinor];
     _settingsLabel.text = [NSString stringWithFormat:@"Settings for %@ beacon:", _beaconMajorMinor];
-    NSLog(@"beacon %@", beacon);
+    NSLog(@"beacon %@", _beaconMajorMinor);
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
@@ -90,7 +90,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.row == 0){
+        NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"];
+        [arr removeObject:_beaconMajorMinor];
+        [[NSUserDefaults standardUserDefaults] setObject:arr forKey:@"beacons"];
+    }
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
