@@ -17,8 +17,11 @@
 		894371AB199D68C6000200DA /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371A3199D68C6000200DA /* SWTableViewCell.m */; };
 		894371AC199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371A5199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m */; };
 		894371AD199D68C6000200DA /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371A7199D68C6000200DA /* SWUtilityButtonView.m */; };
-		894371B0199D6937000200DA /* MainViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371AF199D6937000200DA /* MainViewTableViewCell.m */; };
-		894371B6199D6FC9000200DA /* MainViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371B5199D6FC9000200DA /* MainViewTableViewController.m */; };
+		894371D3199E818B000200DA /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894371D2199E818B000200DA /* CustomTableViewCell.m */; };
+		894371D8199E8210000200DA /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 894371D4199E8210000200DA /* facebook@2x.png */; };
+		894371D9199E8210000200DA /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 894371D5199E8210000200DA /* twitter@2x.png */; };
+		894371DA199E8210000200DA /* message@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 894371D6199E8210000200DA /* message@2x.png */; };
+		894371DB199E8210000200DA /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 894371D7199E8210000200DA /* like@2x.png */; };
 		8962ADD91986BFE300F1211D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADD81986BFE300F1211D /* Foundation.framework */; };
 		8962ADDB1986BFE300F1211D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDA1986BFE300F1211D /* CoreGraphics.framework */; };
 		8962ADDD1986BFE300F1211D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8962ADDC1986BFE300F1211D /* UIKit.framework */; };
@@ -74,10 +77,12 @@
 		894371A5199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
 		894371A6199D68C6000200DA /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
 		894371A7199D68C6000200DA /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
-		894371AE199D6937000200DA /* MainViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewTableViewCell.h; sourceTree = "<group>"; };
-		894371AF199D6937000200DA /* MainViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewTableViewCell.m; sourceTree = "<group>"; };
-		894371B4199D6FC9000200DA /* MainViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewTableViewController.h; sourceTree = "<group>"; };
-		894371B5199D6FC9000200DA /* MainViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewTableViewController.m; sourceTree = "<group>"; };
+		894371D1199E818B000200DA /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		894371D2199E818B000200DA /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
+		894371D4199E8210000200DA /* facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook@2x.png"; sourceTree = "<group>"; };
+		894371D5199E8210000200DA /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
+		894371D6199E8210000200DA /* message@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message@2x.png"; sourceTree = "<group>"; };
+		894371D7199E8210000200DA /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like@2x.png"; sourceTree = "<group>"; };
 		8962ADD51986BFE300F1211D /* Rooms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rooms.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8962ADD81986BFE300F1211D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8962ADDA1986BFE300F1211D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -168,10 +173,8 @@
 			children = (
 				8962ADED1986BFE300F1211D /* ViewController.h */,
 				8962ADEE1986BFE300F1211D /* ViewController.m */,
-				894371B4199D6FC9000200DA /* MainViewTableViewController.h */,
-				894371B5199D6FC9000200DA /* MainViewTableViewController.m */,
-				894371AE199D6937000200DA /* MainViewTableViewCell.h */,
-				894371AF199D6937000200DA /* MainViewTableViewCell.m */,
+				894371D1199E818B000200DA /* CustomTableViewCell.h */,
+				894371D2199E818B000200DA /* CustomTableViewCell.m */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -280,6 +283,10 @@
 		89BD3016198C27C900E86446 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				894371D4199E8210000200DA /* facebook@2x.png */,
+				894371D5199E8210000200DA /* twitter@2x.png */,
+				894371D6199E8210000200DA /* message@2x.png */,
+				894371D7199E8210000200DA /* like@2x.png */,
 				89437194199D2385000200DA /* redbeacon.png */,
 				89BD3004198AED6500E86446 /* beacon.png */,
 				89BD3010198C26F200E86446 /* appicon_58.png */,
@@ -365,12 +372,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				894371D9199E8210000200DA /* twitter@2x.png in Resources */,
 				8962ADF11986BFE300F1211D /* Images.xcassets in Resources */,
 				8962ADE31986BFE300F1211D /* InfoPlist.strings in Resources */,
 				8962ADEC1986BFE300F1211D /* Main.storyboard in Resources */,
 				89437195199D2385000200DA /* redbeacon.png in Resources */,
+				894371D8199E8210000200DA /* facebook@2x.png in Resources */,
 				89BD3015198C26F200E86446 /* appicon_120.png in Resources */,
 				89BD3005198AED6500E86446 /* beacon.png in Resources */,
+				894371DA199E8210000200DA /* message@2x.png in Resources */,
+				894371DB199E8210000200DA /* like@2x.png in Resources */,
 				89BD3014198C26F200E86446 /* appicon_80.png in Resources */,
 				89BD3013198C26F200E86446 /* appicon_58.png in Resources */,
 			);
@@ -396,11 +407,10 @@
 				8962ADE91986BFE300F1211D /* AppDelegate.m in Sources */,
 				8943718A19916FD7000200DA /* MLVisualViewController.m in Sources */,
 				894371AB199D68C6000200DA /* SWTableViewCell.m in Sources */,
-				894371B0199D6937000200DA /* MainViewTableViewCell.m in Sources */,
-				894371B6199D6FC9000200DA /* MainViewTableViewController.m in Sources */,
 				894371AC199D68C6000200DA /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				8962ADE51986BFE300F1211D /* main.m in Sources */,
 				8943718D19918A3E000200DA /* MLDrawing.m in Sources */,
+				894371D3199E818B000200DA /* CustomTableViewCell.m in Sources */,
 				894371AD199D68C6000200DA /* SWUtilityButtonView.m in Sources */,
 				894371AA199D68C6000200DA /* SWLongPressGestureRecognizer.m in Sources */,
 				894371A9199D68C6000200DA /* SWCellScrollView.m in Sources */,

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ESTBeacon.h"
 #import "ESTBeaconManager.h"
-#import "MainViewTableViewCell.h"
+#import "SWTableViewCell.h"
 
 @interface ViewController : UIViewController <ESTBeaconDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate, SWTableViewCellDelegate> {
     NSUserDefaults *defaults;
@@ -18,7 +18,7 @@
 
 @property (nonatomic) IBOutlet UITableView *beaconTable;
 @property (nonatomic) IBOutlet UITableView *stashedBeaconTable;
-@property (nonatomic) IBOutlet MainViewTableViewCell *mvTableViewCell;
+
 @property (nonatomic) IBOutlet UITableViewCell *tableViewCell;
 
 @property (nonatomic, strong) NSMutableArray *beaconsArray;

@@ -1,15 +1,14 @@
 //
-//  MainViewTableViewCell.m
+//  CustomTableViewCell.m
 //  Rooms
 //
-//  Created by Cass Pangell on 8/14/14.
+//  Created by Cass Pangell on 8/15/14.
 //  Copyright (c) 2014 mondolabs. All rights reserved.
 //
 
-#import "MainViewTableViewCell.h"
+#import "CustomTableViewCell.h"
 
-
-@implementation MainViewTableViewCell
+@implementation CustomTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

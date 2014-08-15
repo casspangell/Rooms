@@ -12,6 +12,7 @@
 #import "MLTimeLogViewController.h"
 #import "MLVisualViewController.h"
 #import "SettingsViewController.h"
+#import "CustomTableViewCell.h"
 
 #import <AudioToolbox/AudioServices.h>
 
@@ -162,19 +163,22 @@
 #pragma mark - Table view delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _tableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+    static NSString *cellIdentifier = @"Cell";
     
-    if(!_tableViewCell){
-        _tableViewCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
+    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (!cell) {
+        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
 
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+  /*  UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
-    [_tableViewCell.contentView addGestureRecognizer:swipeGesture];
+    [cell.contentView addGestureRecognizer:swipeGesture];
     
     UISwipeGestureRecognizer *swipeGestureL = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
     [swipeGestureL setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [_tableViewCell.contentView addGestureRecognizer:swipeGestureL];
+    [cell.contentView addGestureRecognizer:swipeGestureL];
+    */
     
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
     defaults = [NSUserDefaults standardUserDefaults];
@@ -189,13 +193,13 @@
         }
 
         beacon = [_foundBeaconsArray objectAtIndex:indexPath.row];
-        _tableViewCell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
-        _tableViewCell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
+        cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
         
         if (pingBeacon.major == beacon.major) {
-            _tableViewCell.imageView.image = [self changeBeaconState:_tableViewCell];
+            cell.imageView.image = [self changeBeaconState:cell];
         }else{
-             _tableViewCell.imageView.image = [UIImage imageNamed:@"beacon"];
+             cell.imageView.image = [UIImage imageNamed:@"beacon"];
         }
         
     
@@ -207,13 +211,42 @@
         NSString *bstring = [beacons objectAtIndex:indexPath.row];
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
 
-        _tableViewCell.detailTextLabel.numberOfLines = 3;
-        _tableViewCell.detailTextLabel.text = @"Tap for settings.\rSwipe right to view visual data.\rSwipe left to view historical data.";
-        _tableViewCell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
-        _tableViewCell.imageView.image = nil;
+        cell.detailTextLabel.numberOfLines = 3;
+        cell.detailTextLabel.text = @"Tap for settings.\rSwipe right to view visual data.\rSwipe left to view historical data.";
+        cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
+        cell.imageView.image = nil;
     }
+    
+    // Add utility buttons
+    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    
+    [leftUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                icon:[UIImage imageNamed:@"like.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                icon:[UIImage imageNamed:@"message.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                icon:[UIImage imageNamed:@"facebook.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                icon:[UIImage imageNamed:@"twitter.png"]];
+    
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
+                                                title:@"More"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
+                                                title:@"Delete"];
+    
+    cell.leftUtilityButtons = leftUtilityButtons;
+    cell.rightUtilityButtons = rightUtilityButtons;
+    cell.delegate = self;
 
-    return _tableViewCell;
+
+    return cell;
 }
 
 -(UIImage*)changeBeaconState:(UITableViewCell*)cell{
