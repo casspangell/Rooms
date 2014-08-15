@@ -207,13 +207,10 @@
          [leftUtilityButtons sw_addUtilityButtonWithColor:
           [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
                                                      icon:[UIImage imageNamed:@"twitter.png"]];
-         
-         [rightUtilityButtons sw_addUtilityButtonWithColor:
-          [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
-                                                     title:@"More"];
+
          [rightUtilityButtons sw_addUtilityButtonWithColor:
           [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
-                                                     title:@"Delete"];
+                                                     title:@"Settings"];
          
          cell.leftUtilityButtons = leftUtilityButtons;
          cell.rightUtilityButtons = rightUtilityButtons;
@@ -307,6 +304,55 @@
             ESTBeacon *selectedBeacon = [savedbeacons objectAtIndex:indexPath.row];
             [self performSegueWithIdentifier:@"settingsSegue" sender:selectedBeacon];
         }
+}
+
+#pragma mark - SWCell delegates
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+    switch (index) {
+            
+        //Settings
+        case 0:
+        {
+            NSIndexPath *cellIndexPath = [self.stashedBeaconTable indexPathForCell:cell];
+            NSMutableArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
+            ESTBeacon *selectedBeacon = [savedbeacons objectAtIndex:cellIndexPath.row];
+            [self performSegueWithIdentifier:@"settingsSegue" sender:selectedBeacon];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
+    
+    switch (index) {
+        case 0:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bookmark" message:@"Save to favorites successfully" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            break;
+        }
+        case 1:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Email sent" message:@"Just sent the image to your INBOX" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            break;
+        }
+        case 2:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Facebook Sharing" message:@"Just shared the pattern image on Facebook" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+            break;
+        }
+        case 3:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Twitter Sharing" message:@"Just shared the pattern image on Twitter" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - ESTBeaconManager delegate
