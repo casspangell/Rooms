@@ -38,6 +38,9 @@
     _savedBeaconsArray = [[NSMutableArray alloc] init];
     self.beaconTable.delegate = self;
     self.beaconTable.dataSource = self;
+    self.stashedBeaconTable.delegate = self;
+    self.stashedBeaconTable.dataSource = self;
+    
     self.beaconManager = [[ESTBeaconManager alloc] init];
     self.beaconManager.delegate = self;
     
@@ -89,22 +92,6 @@
 
 
 
--(void)beaconSettings:(ESTBeacon*)beacon{
-    NSLog(@"settings %@", beacon);
-
-    
-    /*NSMutableArray *beacons = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
-    [beacons removeObject:[NSString stringWithFormat:@"%@-%@", beacon.major, beacon.minor]];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:beacons forKey:@"beacons"];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Removed %@-%@", beacon.major, beacon.minor] message:@"Beacon history  will not be removed. You can re-add beacon at anytime. Go to Settings to delete beacon history." delegate:self cancelButtonTitle:@"Ok"otherButtonTitles: nil];
-    [alert show];
-    
-
-    [self.beaconTable reloadData];
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);*/
-}
-
 -(NSMutableArray*)getInternalBeacons{
     defaults = [NSUserDefaults standardUserDefaults];
     _beacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
@@ -145,12 +132,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0){
+    if (tableView == _beaconTable){
         return [_beaconsArray count];
     
     }else{
@@ -171,82 +158,71 @@
         cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
 
-  /*  UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
-    [swipeGesture setDirection:UISwipeGestureRecognizerDirectionRight];
-    [cell.contentView addGestureRecognizer:swipeGesture];
-    
-    UISwipeGestureRecognizer *swipeGestureL = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
-    [swipeGestureL setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [cell.contentView addGestureRecognizer:swipeGestureL];
-    */
-    
     ESTBeacon *beacon = [[ESTBeacon alloc] init];
     defaults = [NSUserDefaults standardUserDefaults];
-    
-    _foundBeaconsArray = [[NSMutableArray alloc] init];
 
     //Load Found Beacons
-    if (indexPath.section == 0) {
+    if (tableView == _beaconTable) {
         
-        for (int i=0; i<[_beaconsArray count]; i++) {
-            [_foundBeaconsArray addObject:[_beaconsArray objectAtIndex:i]];
-        }
-
-        beacon = [_foundBeaconsArray objectAtIndex:indexPath.row];
+        beacon = [_beaconsArray objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", beacon.major, beacon.minor];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f", [beacon.distance floatValue]];
         
         if (pingBeacon.major == beacon.major) {
             cell.imageView.image = [self changeBeaconState:cell];
         }else{
-             cell.imageView.image = [UIImage imageNamed:@"beacon"];
+            cell.imageView.image = [UIImage imageNamed:@"beacon"];
         }
         
-    
-    //Load Stashed Beacons
-    }else{
+        return cell;
+        
+        //Load Stashed Beacons
+    }else if (tableView == _stashedBeaconTable){
         NSArray *beacons = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
+        NSLog(@"beacons %@", beacons);
         beacon = [beacons objectAtIndex:indexPath.row];
         
         NSString *bstring = [beacons objectAtIndex:indexPath.row];
         NSArray *parse = [bstring componentsSeparatedByString:@"-"];
-
+        
         cell.detailTextLabel.numberOfLines = 3;
         cell.detailTextLabel.text = @"Tap for settings.\rSwipe right to view visual data.\rSwipe left to view historical data.";
         cell.textLabel.text = [NSString stringWithFormat:@"Major: %@, Minor: %@", [parse objectAtIndex:0], [parse objectAtIndex:1]];
         cell.imageView.image = nil;
-    }
-    
-    // Add utility buttons
-    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    
-    [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                icon:[UIImage imageNamed:@"like.png"]];
-    [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                icon:[UIImage imageNamed:@"message.png"]];
-    [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                icon:[UIImage imageNamed:@"facebook.png"]];
-    [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                icon:[UIImage imageNamed:@"twitter.png"]];
-    
-    [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
-                                                title:@"More"];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
-                                                title:@"Delete"];
-    
-    cell.leftUtilityButtons = leftUtilityButtons;
-    cell.rightUtilityButtons = rightUtilityButtons;
-    cell.delegate = self;
+         
+         // Add utility buttons
+         NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+         NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+         
+         [leftUtilityButtons sw_addUtilityButtonWithColor:
+          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                     icon:[UIImage imageNamed:@"like.png"]];
+         [leftUtilityButtons sw_addUtilityButtonWithColor:
+          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                     icon:[UIImage imageNamed:@"message.png"]];
+         [leftUtilityButtons sw_addUtilityButtonWithColor:
+          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                     icon:[UIImage imageNamed:@"facebook.png"]];
+         [leftUtilityButtons sw_addUtilityButtonWithColor:
+          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                     icon:[UIImage imageNamed:@"twitter.png"]];
+         
+         [rightUtilityButtons sw_addUtilityButtonWithColor:
+          [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
+                                                     title:@"More"];
+         [rightUtilityButtons sw_addUtilityButtonWithColor:
+          [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
+                                                     title:@"Delete"];
+         
+         cell.leftUtilityButtons = leftUtilityButtons;
+         cell.rightUtilityButtons = rightUtilityButtons;
+         cell.delegate = self;
+         
+         return cell;
+     }else{
+         return nil;
+     }
 
-
-    return cell;
 }
 
 -(UIImage*)changeBeaconState:(UITableViewCell*)cell{
@@ -268,30 +244,38 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 
-    if (section == 0) {
+    if (tableView == _beaconTable) {
         if ([_beaconsArray count] > 0) {
             return @"Found beacon - Tap to activate.";
         }else{
             return @"Searching...";
         }
         
-    }else {
+    }else if (tableView == _stashedBeaconTable){
 
         if ([[self getInternalBeacons] count]>0){
             return @"Saved Beacons in Stash";
         }else{
             return @"No Beacons in Stash";
-        }
+    }
+    }else{
+        return nil;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([indexPath section] == 1) {
+    if (tableView == _beaconTable) {
         return 100;//45
     }else{
         return 50;
     }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    return tableView.tableFooterView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

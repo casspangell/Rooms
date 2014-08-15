@@ -16,8 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="f44-9b-v9K">
-                                <rect key="frame" x="0.0" y="121" width="320" height="447"/>
+                            <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="f44-9b-v9K">
+                                <rect key="frame" x="0.0" y="20" width="320" height="244"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xoP-cF-pue">
+                                <rect key="frame" x="0.0" y="284" width="320" height="284"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -25,7 +30,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="beaconTable" destination="f44-9b-v9K" id="SuP-TH-daa"/>
+                        <outlet property="beaconTable" destination="f44-9b-v9K" id="Y21-JC-yWn"/>
+                        <outlet property="stashedBeaconTable" destination="xoP-cF-pue" id="3Qb-uJ-wg0"/>
                         <segue destination="4uu-92-rta" kind="modal" identifier="seeBeaconStashData" id="bCr-cT-tre"/>
                         <segue destination="fpf-WD-3Zm" kind="modal" identifier="visualDataSegue" id="41w-qO-pem"/>
                         <segue destination="MfR-DU-uh6" kind="modal" identifier="settingsSegue" modalTransitionStyle="flipHorizontal" id="zOE-GJ-w56"/>

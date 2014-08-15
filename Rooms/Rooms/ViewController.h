@@ -23,7 +23,7 @@
 
 @property (nonatomic, strong) NSMutableArray *beaconsArray;
 @property (nonatomic) NSMutableArray *savedBeaconsArray;
-@property (nonatomic) NSMutableArray *foundBeaconsArray;
+
 @property (nonatomic, strong) NSMutableArray *beacons;
 
 @property (nonatomic) NSMutableArray *clockIn;

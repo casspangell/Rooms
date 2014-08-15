@@ -90,10 +90,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    NSString *message;
+    
     if (indexPath.row == 0){
         NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"];
         [arr removeObject:_beaconMajorMinor];
         [[NSUserDefaults standardUserDefaults] setObject:arr forKey:@"beacons"];
+        message = [NSString stringWithFormat:@"Beacon %@ removed from stash.", _beaconMajorMinor];
+    }
+    
+    if (indexPath.row == 1) {
+
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@-time", _beaconMajorMinor]];
+        message = [NSString stringWithFormat:@"Beacon's %@ data history removed from stash.", _beaconMajorMinor];
+        NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@-time", _beaconMajorMinor]]);
     }
 }
 
