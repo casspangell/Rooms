@@ -86,7 +86,8 @@
     
     [defaults setObject:_beacons forKey:@"beacons"];
     NSLog(@"beacons added %@", [defaults objectForKey:@"beacons"]);
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+    
+    [self.stashedBeaconTable reloadData];
     
 }
 
@@ -285,7 +286,7 @@
     defaults = [NSUserDefaults standardUserDefaults];
     NSArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
 
-        if (indexPath.section == 0) {
+        if (tableView == _beaconTable) {
             if ([savedbeacons containsObject:[NSString stringWithFormat:@"%@-%@", selectedBeacon.major, selectedBeacon.minor]]) {
                 NSLog(@"beacon already saved");
                 [self fade:NO];
