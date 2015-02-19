@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    ESTBeacon *beacon = [[NSUserDefaults standardUserDefaults] objectForKey:_beaconMajorMinor];
+    //ESTBeacon *beacon = [[NSUserDefaults standardUserDefaults] objectForKey:_beaconMajorMinor];
     _settingsLabel.text = [NSString stringWithFormat:@"Settings for %@ beacon:", _beaconMajorMinor];
     NSLog(@"beacon %@", _beaconMajorMinor);
     
@@ -40,7 +40,7 @@
     self.settingsTable.delegate = self;
     self.settingsTable.dataSource = self;
     
-    optionsArray = [[NSMutableArray alloc] initWithObjects:@"Remove beacon from stash", @"Delete beacon data history", nil];
+    optionsArray = [[NSMutableArray alloc] initWithObjects:@"Remove beacon from stash", @"Delete beacon data history", @"Give random quotes as you pass by?", nil];
 
 }
 
@@ -76,6 +76,12 @@
     
     cell.textLabel.text = [optionsArray objectAtIndex:indexPath.row];
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    cell.backgroundColor = [UIColor clearColor];
+    
+if (indexPath.row == 2) {
+        cell.textLabel.numberOfLines = 2;
+    }
+    
     return cell;
 }
 
@@ -94,10 +100,15 @@
     NSString *message;
     
     if (indexPath.row == 0){
-        NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"];
+        NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"beacons"]];
+        
+        
         [arr removeObject:_beaconMajorMinor];
         [[NSUserDefaults standardUserDefaults] setObject:arr forKey:@"beacons"];
         message = [NSString stringWithFormat:@"Beacon %@ removed from stash.", _beaconMajorMinor];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
     }
     
     if (indexPath.row == 1) {
@@ -105,6 +116,14 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@-time", _beaconMajorMinor]];
         message = [NSString stringWithFormat:@"Beacon's %@ data history removed from stash.", _beaconMajorMinor];
         NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@-time", _beaconMajorMinor]]);
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self performSegueWithIdentifier:@"homeSegue" sender:self];
     }
 }
 

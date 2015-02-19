@@ -10,29 +10,29 @@
 	<string>Rooms</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>69335F72-AC50-4681-A478-59A8CA2C1AC7</key>
-		<string>ssh://github.com/casspangell/Rooms.git</string>
+		<key>3EEC8D7A191468C2A8F243E555D17A1DCE66E4AB</key>
+		<string>github.com:casspangell/Rooms.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Rooms/Rooms.xcodeproj/project.xcworkspace</string>
+	<string>Rooms/Rooms.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>69335F72-AC50-4681-A478-59A8CA2C1AC7</key>
+		<key>3EEC8D7A191468C2A8F243E555D17A1DCE66E4AB</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/casspangell/Rooms.git</string>
+	<string>github.com:casspangell/Rooms.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>69335F72-AC50-4681-A478-59A8CA2C1AC7</string>
+	<string>3EEC8D7A191468C2A8F243E555D17A1DCE66E4AB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>69335F72-AC50-4681-A478-59A8CA2C1AC7</string>
+			<string>3EEC8D7A191468C2A8F243E555D17A1DCE66E4AB</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Rooms</string>
 		</dict>

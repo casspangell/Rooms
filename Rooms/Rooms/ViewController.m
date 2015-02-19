@@ -51,6 +51,10 @@
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [self.beaconTable reloadData];
+}
+
 -(void) fade:(BOOL)didSave {
     [UIView animateWithDuration:.1 animations:^(void) {
         [_selectLabel setAlpha:.3];
@@ -196,22 +200,14 @@
          NSMutableArray *rightUtilityButtons = [NSMutableArray new];
          
          [leftUtilityButtons sw_addUtilityButtonWithColor:
-          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                     icon:[UIImage imageNamed:@"like.png"]];
-         [leftUtilityButtons sw_addUtilityButtonWithColor:
-          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                     icon:[UIImage imageNamed:@"message.png"]];
-         [leftUtilityButtons sw_addUtilityButtonWithColor:
-          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                     icon:[UIImage imageNamed:@"facebook.png"]];
-         [leftUtilityButtons sw_addUtilityButtonWithColor:
-          [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                     icon:[UIImage imageNamed:@"twitter.png"]];
+          [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.7]
+                                                     icon:[UIImage imageNamed:@"data.png"]];
 
          [rightUtilityButtons sw_addUtilityButtonWithColor:
-          [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
-                                                     title:@"Settings"];
-         
+          [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.7]
+                                                      icon:[UIImage imageNamed:@"settings.png"]];
+
+        
          cell.leftUtilityButtons = leftUtilityButtons;
          cell.rightUtilityButtons = rightUtilityButtons;
          cell.delegate = self;
@@ -264,9 +260,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == _beaconTable) {
-        return 100;//45
+        return 100;
     }else{
-        return 50;
+        return 100;
     }
 }
 
@@ -293,7 +289,7 @@
                 
                 NSString *major = [NSString stringWithFormat:@"%@", selectedBeacon.major];
                 NSString *minor = [NSString stringWithFormat:@"%@", selectedBeacon.minor];
-                [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor ]];
+                [beaconsPrevSaved addObject:[NSString stringWithFormat:@"%@-%@", major, minor]];
                 
                 [self addBeaconToArray:selectedBeacon];
                 [self fade:YES];
@@ -301,8 +297,8 @@
         }
         
         else{
-            ESTBeacon *selectedBeacon = [savedbeacons objectAtIndex:indexPath.row];
-            [self performSegueWithIdentifier:@"settingsSegue" sender:selectedBeacon];
+           // ESTBeacon *selectedBeacon = [savedbeacons objectAtIndex:indexPath.row];
+           // [self performSegueWithIdentifier:@"settingsSegue" sender:selectedBeacon];
         }
 }
 
@@ -329,26 +325,11 @@
     switch (index) {
         case 0:
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Bookmark" message:@"Save to favorites successfully" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
+            NSIndexPath *cellIndexPath = [self.stashedBeaconTable indexPathForCell:cell];
+            NSMutableArray *savedbeacons = [[NSMutableArray alloc] initWithArray:[defaults objectForKey:@"beacons"]];
+            ESTBeacon *selectedBeacon = [savedbeacons objectAtIndex:cellIndexPath.row];
+            [self performSegueWithIdentifier:@"visualDataSegue" sender:selectedBeacon];
             break;
-        }
-        case 1:
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Email sent" message:@"Just sent the image to your INBOX" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-        }
-        case 2:
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Facebook Sharing" message:@"Just shared the pattern image on Facebook" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            break;
-        }
-        case 3:
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Twitter Sharing" message:@"Just shared the pattern image on Twitter" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
         }
         default:
             break;
